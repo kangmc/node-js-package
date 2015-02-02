@@ -1,0 +1,92 @@
+<%- contentFor('subcontent') %>
+<h2 class="page-header">Packaging</h2>
+<div class="desc">
+	- Plugin 파일은 프로젝트 단위로 concatenate 된 minify 버전을 사용한다.<br><br>
+	
+	- Build Environment<br>
+	: grunt.
+	<br>
+	<ul>
+		<li>Node 설치</li>
+		<li>grunt cli 설치</li>
+		<li>package.json, gruntfile.js 추가</li>
+		<li>plugin 설치</li>
+		<li>minify 실행</li>
+	</ul>
+</div>
+
+<article>
+	<h3 class="sub-header">Node 설치</h3>
+	<div class="desc">
+		grunt 를 실행할 node 환경 설치를 위해 아래 사이트에서 node를 설치한다.<br>
+		(<a href="http://www.nodejs.org/" target="_blank">http://www.nodejs.org/</a>)<br><br>
+		
+		Command Prompt 에서 npm -v 입력시 현채 설치된 버전정보가 나타나면 정상적으로 설치된 것이다.
+	</div>
+	
+	<div class="code">
+		<pre class="brush: shell;" title="Check npm version">
+			$ npm -v
+			
+			$ 1.4.32</pre>						
+	</div>
+</article>
+
+<article>
+	<h3>grunt cli 설치</h3>
+	<div class="code">
+		<pre class="brush: shell;" title="grunt-cli install">
+			$ npm install -g grunt-cli</pre>						
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">package.json, gruntfile.js 추가</h3>
+	<div class="desc">
+		아래 두 파일을 다운받고 프로젝트 Root 에 추가한다.<br><br>
+		
+		<a href="./package.json" target="_blank">package.json Download</a><br>
+		<a href="./gruntfile.js" target="_blank">gruntfile.js Download</a>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">gruntfile.js 파일에서 packaging 할 구조를 설정한다.</h3>
+	<div class="code">
+		<pre class="brush: js;" title="">
+			jquery_plugins: {
+				src: [
+					'&lt;%= pkg.path.plugin %>/jquery.navigate.js',
+					'&lt;%= pkg.path.plugin %>/jquery.stateAlarm.js',
+					'&lt;%= pkg.path.plugin %>/jquery.countdown.custom.js', 
+					'&lt;%= pkg.path.plugin %>/jquery.layer.js', 
+					'&lt;%= pkg.path.plugin %>/jquery.number.adjust.js',
+					'&lt;%= pkg.path.plugin %>/jquery.rolling.js',
+					'&lt;%= pkg.path.plugin %>/jquery.timer.js',
+					'&lt;%= pkg.path.jquery %>/jquery-migrate-1.2.1.js'
+				],
+				dest: '&lt;%= pkg.path.jquery %>/jquery.plugin.pkg.js'
+			}
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">plugin 설치</h3>
+	<div class="code">
+		<pre class="brush: shell;" title="Grunt Plugin Install">
+			$ npm install</pre>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">minify 실행</h3>
+	<div class="code">
+		<pre class="brush: shell;" title="Minify">
+			$ grunt min</pre>						
+	</div>
+</article>
+
+<%- contentFor('script') %>
+<script type="text/javascript">
+
+</script>

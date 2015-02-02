@@ -1,0 +1,30 @@
+{
+    "title" : "jQuery Utils",
+    "desc" : "jQuery namespace 를 확장한 utils.",
+    "child" : [
+        {"title" : "$.config", "desc" : "설정된 application configuration 정보를 get/set", "child": [
+        	{
+        		"title" : "$.config > set", 
+        		"desc" : "configuration 정보중 editable:true 인 값들만 runtime 에서 1회 설정이 가능하다.",
+	        	"code": "var root = $.config('root');"
+	        },
+	        {
+        		"title" : "$.config > get", 
+        		"desc" : "설정된 정보를 get : readonly.",
+	        	"code": "var root = $.config('root');"
+	        },
+        ]},
+        {"title" : "$.log", "desc" : "설정된 application configuration 정보를 get/set", "child": [
+        	{
+        		"title" : "$.config > set", 
+        		"desc" : "configuration 정보중 editable:true 인 값들만 runtime 에서 1회 설정이 가능하다.",
+	        	"code": "var root = $.config('root');"
+	        },
+	        {
+        		"title" : "$.config > get", 
+        		"desc" : "설정된 정보를 get : readonly.",
+	        	"code": "var root = $.config('root');"
+	        },
+        ]}
+    ] 
+}

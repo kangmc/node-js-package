@@ -1,0 +1,113 @@
+
+/* global */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td {font-size:100%; font-family:Verdana; margin:0; padding:0; border:0; vertical-align:baseline;}
+body {line-height:1; color:black; background:white;}
+ol, ul {list-style:none;}
+table {border-collapse:separate; border-spacing:0;}
+caption, th, td {text-align:left; font-weight:normal;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+blockquote, q {quotes:'' '';}
+button,
+input {overflow:visible;}
+input, select, img {vertical-align:middle;}
+textarea {overflow:auto;}
+em {font-style:normal;}
+
+a {color:inherit; text-decoration:none;}
+*+ html a {color:#333;}
+a:focus,
+a:hover {text-decoration:underline;}
+
+body {
+	overflow:auto; 
+	height:4700px; 
+	font-size:12px; line-height:1.2;
+}
+
+#skrollr-body {width:100%; height:100%; position:fixed; }
+
+#header {
+	padding:5px 5px 0 5px;height:70px;color:#FFFFFF;
+	position: fixed;
+	background-color: #6C7394;
+	width:100%;
+	z-index:1000;
+}
+#header h1 a{font-size:20px;}
+#header h1 a:hover{text-decoration:none;cursor:pointer;}
+#header nav { position:absolute;bottom:0px; padding-left:200px; }
+#header nav ul {height:30px;min-width:960px; font-weight:bold; padding-top:8px;}
+	#header nav ul:after {content:''; display:block; clear:both;}
+#header nav ul li {float:left; margin-left:40px;}
+	#header nav ul li:first-child {margin-left:0;}
+	#header nav ul li.on a {color:#FFB24F;text-decoration:none;}
+	#header nav ul li a {vertical-align: middle;line-height:30px;}
+	#header nav ul li a:focus,
+	#header nav ul li a:hover {text-decoration:none;} /*color:#F1941D;*/
+#header .user {font-size:11px; position:absolute; top:10px; right:20px;}
+/*#header .user .photo {
+    vertical-align:middle; 
+    display:inline-block; 
+    width:33px; height:22px; 
+    background-color:#eaeaea; 
+    background-repeat:no-repeat; background-position:50% 50%; background-image:url('/images/bg_user.gif');
+}*/
+#header .user a.btn {line-height:23px; vertical-align:middle; display:inline-block; height:22px; padding:0 10px; background-color:#eaeaea;}
+	#header .user a.btn:hover {text-decoration:none;}
+
+.centered { top:0; bottom:0; left:0; right:0; margin:auto; }
+/* contents */
+
+.fix {position:fixed; right:10px; top: 100px;z-index:2000;}
+.fix button{}
+.sec{
+	position:absolute;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+#sec1 {
+	background-color:#0074B4;
+	z-index: 40;
+}
+ #sec2 {
+	background-color:#1F9A59;
+	z-index: 30;
+}
+#sec3 {
+	background-color:#D8D8D8;
+	z-index: 20;
+}
+ #sec4 {
+	background-color:#F1941D;
+	z-index: 10;
+}
+
+
+/* footer */
+#footer {
+	color:#888;
+	bottom:0; 
+	right:0; left:0; 
+	height:30px; 
+	border-top:1px solid #858585;
+	z-index:1000;
+	position: fixed;
+	background-color: #6C7394;
+}
+#footer:after {content:''; display:block; clear:both;}
+#footer h1 {float:left; padding:5px 20px 0;}
+#footer h1 img {vertical-align:top;}
+#footer .copy {font-style:normal; float:left; padding:10px 0 0 0;}
+#footer .today {font-size:11px;color:#333;float:right; padding:10px 20px 0 0;}
+#footer .today a {font:0/0 a; vertical-align:middle; display:inline-block; width:14px; height:16px; margin-left:10px;}
+#footer .today a:before {color:#cdcdcd; font-size:14px; font-family:'FontAwesome'; font-style:normal; font-weight:normal; line-height:normal; vertical-align:baseline; cursor:pointer; content:'\f0ca'; display:inline-block;}
+#footer .login {float:right; padding:10px 25px 0 0;}
+#footer .login a {font:0/0 a; vertical-align:middle; display:inline-block; width:14px; height:16px; margin-left:10px;}
+#footer .login a:before {color:#cdcdcd; font-size:14px; font-family:'FontAwesome'; font-style:normal; font-weight:normal; line-height:normal; vertical-align:baseline; cursor:pointer; content:'\f0ca'; display:inline-block;}
+
+

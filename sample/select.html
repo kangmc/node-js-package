@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+    <title>UI Script Guide ( jQuery-Based )</title>
+    <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" />
+    
+    <!-- syntaxhighlighter -->
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter/styles/shCoreDefault.css"/>
+    <script type="text/javascript" src="../syntaxhighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushXml.js"></script>
+	<script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+	
+    <!--[if lt IE 9]>
+        <script src="../scripts/lib/html5.js"></script>
+    <![endif]-->
+    <!-- modernizr -->
+	<script type="text/javascript" src="../scripts/lib/modernizr.full.min.js"></script>
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>						<!-- jrx -->
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/tru_scripts_doc'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>									<!-- global init -->
+    
+    <!-- jquery : ui -->
+    <script src="../scripts/jquery/ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../scripts/jquery/ui/jquery-ui.min.css" media="all" />
+</head>
+<body>
+
+<div id="document">
+	<div id="header">
+
+		<h1><a id="header_logo">UI Script Guide ( jQuery-Based )</a></h1>
+		<nav id="nav">
+		</nav>
+	</div>
+
+	<div id="contents">
+		<div class="content-wrap">
+			<aside>
+				<nav id="lnb"></nav>
+			</aside>
+			<div class="content-area">
+				<div class="sub-content">
+					<form name="frm" id="frm" action="" >
+					<input type="hidden" name="uploadDir" value="sample"/>
+					<article>
+						<div class="table-menu">
+							<div class="left">
+								<!-- <button class="btn-type-2">삭제</button> -->
+							</div>
+							<div class="right">
+								<button class="btn-type-1" name="btn_save">등록</button>
+								<button class="btn-type-2" name="btn_cancel">취소</button>
+							</div>
+						</div>
+						<div class="table-type-2">
+							<table>
+								<colgroup>
+									<col width="18%" />
+									<col />
+									<col width="18%" />
+									<col />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>Select Custom Sample</th>
+										<td colspan="3">
+											<select id="select">
+												<option value="1000">1000</option>
+												<option value="1001">1001</option>
+												<option value="1002">1002</option>
+												<option value="1003">1003</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="table-menu">
+							<div class="left">
+								<!-- <button class="btn-type-2">삭제</button> -->
+							</div>
+							<div class="right">
+								<button class="btn-type-1" name="btn_save">등록</button>
+								<button class="btn-type-2" name="btn_cancel">취소</button>
+							</div>
+						</div>
+					</article>
+					
+					</form>
+				</div>
+				<div class="fixed" style="right:30px;bottom:50px;">
+					<button class="btn-type-1" id="top">Top</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="footer">
+		<h1><img src="" alt="Logo" /></h1>
+		<address class="copy"><p>(c) MZ Dev. All rights reserved.</p></address>
+	</footer>
+</div>
+
+<script>
+(function( $, window, document){
+	$(function(){
+		//======================== page initialize ===================
+		
+		var 
+			$frm = $('#frm');
+		
+		$frm.find('button[name=btn_save]').on('click', saveListener);
+		$frm.find('button[name=btn_cancel]').on('click', cancelListener);
+		
+		$frm.find('button[name=btn_plus]').on('click', plusListener);
+		$frm.find('button[name=btn_minus]').on('click', minusListener);
+		
+		$.validate.extend();
+		$.validate.init();
+		$frm.validate();
+		
+		function saveListener () {
+			$frm.submit();
+			return false;
+		}
+		
+		function cancelListener () {
+			return false;
+		}
+		
+		function plusListener () {
+			$.log('plus click');
+			setCount(true);
+			return false;
+		}
+		
+		function minusListener () {
+			setCount(false);
+			return false;
+		}
+		
+		function setCount (isPlus) {
+			var count = parseInt($('#count').val(), 10);
+			
+			count = isPlus ? count + 1 : count && count - 1;
+			$.log('current count : ' + count);
+			$('#count').val(count);
+		}
+		//============================================================
+	});
+})( jQuery, window, document );
+</script>
+</body>
+</html>

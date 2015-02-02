@@ -1,0 +1,456 @@
+<%- contentFor('subcontent') %>
+<h2 class="page-header">jQuery Extend Utils</h2>
+<h3>jQuery namespace 를 확장한 utils.</h3>
+<div class="row">
+	<div class="col-sm-10">
+		<article id="util_config">
+			<h3 class="sub-header">$.config</h3>
+			<div class="desc">
+				설정된 application configuration 정보 get/set.
+				<br><br>
+				configuration 정보중 editable:true 인 값들만 runtime 에서 1회 설정이 가능하다.<br>
+				설정된  정보를 get : readonly.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var _info = {
+							'useLog' : true
+						};
+					
+					// $.config > set
+					$.config(_info);
+				</pre>
+				<pre class="brush: js;">
+					// $.config > get
+					var root = $.config('root');</pre>
+				
+			</div>
+		</article>
+
+		<article id="util_log">
+			<h3 class="sub-header">$.log</h3>
+			<div class="desc">
+				$.config('useLog') 설정이 true 이면 로그가 나타난다. 
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					$.log('Hello World!');</pre>
+				
+			</div>
+		</article>
+
+
+		<article id="util_cookie">
+			<h3 class="sub-header">$.cookie</h3>
+			<div class="desc">
+				기본적으로 cookie 는 browser, domain 기준으로 저장되며 string type 을 가진다. <br>
+				일반적으로 4KB 까지만 저장이 가능합니다.<br>
+				document.cookie 를 사용할 수 있는 get, set, remove, clear 을 지원한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					// @method get
+					// @params name
+					$.cookie.get('name');
+					
+					// @method set
+					// @params name
+					// @params value
+					// @params expireDays {Number}
+					$.cookie.set('name', 1);
+					
+					// @method remove
+					// @params name
+					$.cookie.remove('name');
+					
+					// @method clear
+					$.cookie.clear();
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_storage">
+			<h3 class="sub-header">$.storage</h3>
+			<div class="desc">
+				supported IE 8+<br>
+				localStorage 를 사용하기 위한 interface.<br>
+				localStorage 는 일반적으로 4MB의 용량을 지원하며 String 으로 저장된다.<br>
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					// @method get
+					// @params name
+					$.storage.get('name');
+					
+					// @method set
+					// @params name
+					// @params value
+					$.storage.set('name', 1);
+					
+					// @method remove
+					// @params name
+					$.storage.remove('name');
+					
+					// @method clear
+					$.storage.clear();
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_stringify">
+			<h3 class="sub-header">$.stringify</h3>
+			<div class="desc">
+				JSON 객체를 지원하지 않는 IE 7 이하 브라우저에서 사용.<br>
+				JSON.parse(), JSON.stringify() method 형태 <br>
+				$.parseJSON(), $.stringify() 로 대체 사용 가능.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var data = {"nation": "korea", "name": "jeros"};
+					
+					data = JSON.stringify(data);
+					$.log($.type(data));					// string
+					
+					data = JSON.parse(data);
+					$.log($.type(data));					// object
+					
+					data = $.stringify(data);
+					$.log($.type(data));					// string
+					
+					data = $.parseJSON(data);
+					$.log($.type(data));					// object
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_regexp">
+			<h3 class="sub-header">$.regexp</h3>
+			<div class="desc">
+				파라미터{String} 전달시 정규식을 반환한다.<br>
+				parameters : tag, trim, number, date, rgb, engnum
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					$.regexp('tag');
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_strip">
+			<h3 class="sub-header">$.strip</h3>
+			<div class="desc">
+				문자열에 있는 string 을 제거한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var domText = '&lt;strong>Hello!&lt;/strong>';
+					
+					$.log($.strip(domText));		// Hello!
+				</pre>
+			</div>
+		</article>
+
+
+		<article id="util_isNumberKey">
+			<h3 class="sub-header">$.isNumberKey</h3>
+			<div class="desc">
+				key Event 발생시 Event 를 전달받아 숫자가 입력된 것인지 판별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					$('#input').on('keydown', function (e) {
+						if(!$.isNumberKey(e)) return false;
+					});
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_addCommas">
+			<h3 class="sub-header">$.addCommas</h3>
+			<div class="desc">
+				전달받은 인자에 comma 를 추가하여 반환한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var price = 15000;
+					
+					var priceComma = $.addCommas(price);	// 15,000
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_preloadImage">
+			<h3 class="sub-header">$.preloadImage</h3>
+			<div class="desc">
+				이미지 Url 을 전달받아 사전에 로딩한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					// 1개의 이미지를 로딩하는 경우.
+					$.preloadImage('http://www.tru.co.kr/images/temp.jpg');
+					
+					// n개의 이미지를 로딩하는 경우.
+					$.preloadImage([
+						'http://www.tru.co.kr/images/temp0.jpg',
+						'http://www.tru.co.kr/images/temp1.jpg',
+						'http://www.tru.co.kr/images/temp2.jpg',
+						'http://www.tru.co.kr/images/temp3.jpg'
+					]);
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_loading">
+			<h3 class="sub-header">$.loading</h3>
+			<div class="desc">
+				로딩바 Element 를 생성한다.<br>
+				show, hide Method 를 지원한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					// 로딩이미지 생성
+					$.loading.show();
+					
+					// 생성시, 전달인자로 css 를 변경할 수 있다.
+					$.loading.show({'z-index' : 200});
+					
+					// 로딩이미지 제거
+					$.loading.hide();
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_mask">
+			<h3 class="sub-header">$.mask</h3>
+			<div class="desc">
+				전체 화면을 Dim 하는 마스크를 생성한다.<br>
+				show, hide Method 를 지원한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					// 마스크 생성
+					$.mask.show();
+					
+					// 생성시, 전달인자로 css 를 변경할 수 있다.
+					$.mask.show({'z-index' : 200});
+					
+					// 마스크 제거
+					$.mask.hide();
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_stateAlarm">
+			<h3 class="sub-header">$.stateAlarm</h3>
+			<div class="desc">
+				instance message 를 띄울때 사용한다.
+			</div>
+			<div class="code">
+				<div><div id="highlighter_974786" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">// @method stateAlarm</code></div><div class="line number2 index1 alt1"><code class="js comments">// @params name</code></div><div class="line number3 index2 alt2"><code class="js comments">// @params sec {Number}</code></div><div class="line number4 index3 alt1"><code class="js plain">$.stateAlarm(</code><code class="js string">'message'</code><code class="js plain">);</code></div></div></td></tr></tbody></table></div></div>
+			</div>
+		</article>
+
+		<article id="util_isString">
+			<h3 class="sub-header">$.isString</h3>
+			<div class="desc">
+				전달인자가 String 인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var str = 'Hello';
+					
+					$.isString(str);	// return true
+					
+					var num = 123;
+					
+					$.isString(num);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isNumber">
+			<h3 class="sub-header">$.isNumber</h3>
+			<div class="desc">
+				전달인자가 Number 인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var num = 123;
+					
+					$.isNumber(num);	// return true
+					
+					var str = 'Hello';
+					
+					$.isNumber(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isArray">
+			<h3 class="sub-header">$.isArray</h3>
+			<div class="desc">
+				전달인자가 Array 인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var arr = ['1', '2', '4'];
+					
+					$.isArray(arr);	// return true
+					
+					var str = 'Hello';
+					
+					$.isArray(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isBoolean">
+			<h3 class="sub-header">$.isBoolean</h3>
+			<div class="desc">
+				전달인자가 Boolean 인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var isB = true;
+					
+					$.isBoolean(isB);	// return true
+					
+					var str = 'Hello';
+					
+					$.isBoolean(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isObject">
+			<h3 class="sub-header">$.isObject</h3>
+			<div class="desc">
+				전달인자가 Object 인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var obj = {};
+					
+					$.isObject(obj);	// return true
+					
+					var str = 'Hello';
+					
+					$.isObject(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isEmail">
+			<h3 class="sub-header">$.isEmail</h3>
+			<div class="desc">
+				전달인자가 Email 형식인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var email = 'abc@abc.com';
+					
+					$.isEmail(email);	// return true
+					
+					var str = 'Hello';
+					
+					$.isEmail(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isUrl">
+			<h3 class="sub-header">$.isUrl</h3>
+			<div class="desc">
+				전달인자가 Url 형식인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var url = 'http://www.abc.com/aa/bb/cc';
+					
+					$.isUrl(url);	// return true
+					
+					var str = 'Hello';
+					
+					$.isUrl(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_isDate">
+			<h3 class="sub-header">$.isDate</h3>
+			<div class="desc">
+				전달인자가 Date 형식인지 감별한다.
+			</div>
+			<div class="code">
+				<pre class="brush: js;">
+					var date = new Date();
+					
+					$.isDate(date);	// return true
+					
+					var str = 'Hello';
+					
+					$.isDate(str);	// return false
+				</pre>
+			</div>
+		</article>
+
+		<article id="util_validate">
+			<h3 class="sub-header">$.validate.init</h3>
+			<div class="desc">
+				validate plugin init : set defaults.
+			</div>
+			<div class="code">
+				<div><div id="highlighter_244621" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">$.validate.init();</code></div></div></td></tr></tbody></table></div></div>
+			</div>
+		</article>
+
+		<article id="util_browser">
+			<h3 class="sub-header">$.browser</h3>
+			<div class="desc">
+				사용중인 브라우저 정보를 반환한다.<br>
+				jquery-migrate-1.2.1.js 를 사용.
+			</div>
+		</article>
+	</div>
+
+	<div class="desc col-sm-2" style="position: relative;">
+		 <div style="position: fixed; top: 130px;">
+		 	<ul>
+				<li><a href="#util_config">$.config</a></li>
+				<li><a href="#util_log">$.log</a></li>
+				<li class="divide"></li>
+				<li><a href="#util_cookie">$.cookie</a></li>
+				<li><a href="#util_storage">$.storage</a></li>
+				<li class="divide"></li>
+				<li><a href="#util_stringify">$.stringify</a></li>
+				<li><a href="#util_regexp">$.regexp</a></li>
+				<li><a href="#util_strip">$.strip</a></li>
+				<li class="divide"></li>
+				<li><a href="#util_isNumberKey">$.isNumberKey</a></li>
+				<li><a href="#util_addCommas">$.addCommas</a></li>
+				<li><a href="#util_preloadImage">$.preloadImage</a></li>
+				<li><a href="#util_loading">$.loading</a></li>
+				<li><a href="#util_mask">$.mask</a></li>
+				<li><a href="#util_stateAlarm">$.stateAlarm</a></li>
+				<li class="divide"></li>
+				<li><a href="#util_isString">$.isString</a></li>
+				<li><a href="#util_isNumber">$.isNumber</a></li>
+				<li><a href="#util_isArray">$.isArray</a></li>
+				<li><a href="#util_isBoolean">$.isBoolean</a></li>
+				<li><a href="#util_isObject">$.isObject</a></li>
+				<li><a href="#util_isEmail">$.isEmail</a></li>
+				<li><a href="#util_isUrl">$.isUrl</a></li>
+				<li><a href="#util_isDate">$.isDate</a></li>
+				<li class="divide"></li>
+				<li><a href="#util_validate">$.validate.init</a></li>
+				<li class="divide"></li>
+				<li><a href="#util_browser">$.browser</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<%- contentFor('script') %>
+<script type="text/javascript">
+
+</script>

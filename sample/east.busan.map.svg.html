@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Map Svg Sample</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" /> -->
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>							<!-- jrx -->
+	<!-- <script src="../scripts/lib/svg-pan-zoom.min.js"></script> -->
+	<script src="../scripts/jquery/plugin/jquery.panzoom.js"></script>
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/', useLog : true});
+		
+	})();
+	</script>
+	<!-- <script src="../scripts/init.js"></script> -->
+    
+    <style>
+    html,body {height:100%;}
+    a {color:inherit; text-decoration:none;}
+    #navi ul {padding-bottom : 20px;list-style-type : none;clear:both;}
+    #navi li {float:left;width:25%;font-size:0.8em;}
+	#map-canvas {width : 100%;border :1px solid #aaaaaa;margin: 0px;padding: 0px;}
+  	
+  	#demo_map {background: url(/images/map.0.jpg);background-size: contain;background-repeat:no-repeat;}
+  	
+      /*svg {height : 100vw;}*/
+      /*path {fill:#e3e3e3; transition : .6s fill;}
+      path:hover {fill: #eee;}*/
+      
+    </style>
+</head>
+<body>
+
+<div id="document">
+
+	<div id="contents">
+		<div class="content-wrap">
+			<aside>
+				<nav id="navi">
+				    <ul>
+				        <li><a href="#all" id="all">전체</a></li>
+				        <li><a href="#nike" id="nike">나이키</a></li>
+				        <li><a href="#north" id="north">노스페이스</a></li>
+				        <li><a href="#wellmade" id="wellmade">웰메이드</a></li>
+				    </ul>
+				</nav>
+			</aside>
+			<div class="content-area">
+				<div class="sub-content">
+					<div id="map-canvas">
+						
+						<svg id="demo_map" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1025.7 728.25">
+							<g transform="translate(142.83807,-36.808611)">
+								<!-- <rect height="41" width="154.33" y="635.39" x="258.16" fill="#b2b2b2"/> -->
+								<!-- <text x="118" y="155" text-anchor="middle" fill="#000000"><tspan>나이키</tspan></text>
+								<text x="580" y="155" text-anchor="middle" fill="#000000"><tspan>노스페이스</tspan></text>
+								<text x="220" y="350" text-anchor="middle" fill="#000000"><tspan>웰메이드</tspan></text> -->
+							</g>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+$(function(){
+	//======================== page initialize ===================
+	var brandInfo = {
+		polo : {x:687.83, y:645.39},
+		hazzys : {x:335, y:662.39}
+	};
+	
+	var $panzoom = $('#demo_map').panzoom({
+		minScale: 1,
+		increment: 0.4,
+		rangeStep: 0.2,
+		transition: false,
+		contain: 'invert',
+		disablePan: true,
+  		disableZoom: true
+	});
+	
+	$panzoom.panzoom('zoom', 1.8, {
+		increment: 0.2,
+		animate: false
+	});
+	
+	$panzoom.on('panzoomend', function(e, panzoom, matrix, changed) {
+		
+		if (changed) {
+		// deal with drags or touch moves
+			
+			// var matrix = $panzoom.panzoom("getMatrix");
+			var ma = parseFloat(matrix[0], 10);
+			
+			if(ma >= 1.4){
+				appendText();
+			} else {
+				removeText();
+			}
+			
+		} else {
+		// deal with clicks or taps
+		}
+	});
+	
+	$panzoom.parent().on('mousewheel.focal', function( e ) {
+		e.preventDefault();
+		var delta = e.delta || e.originalEvent.wheelDelta;
+		var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+		
+		$panzoom.panzoom('zoom', zoomOut, {
+			increment: 0.2,
+			animate: true,
+			focal: e
+		});
+		
+		
+	});
+	
+	function parseSVG(s) {
+        var div= document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+        div.innerHTML= '<svg xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';
+        var frag= document.createDocumentFragment();
+        while (div.firstChild.firstChild)
+            frag.appendChild(div.firstChild.firstChild);
+        return frag;
+    }
+    
+	function appendText() {
+		if(!$panzoom.attr('text')){
+			$panzoom.attr('text', 'text');
+			var text = parseSVG('<text x="118" y="155" text-anchor="middle" fill="#000000"><tspan>나이키</tspan></text><text x="580" y="155" text-anchor="middle" fill="#000000"><tspan>노스페이스</tspan></text><text x="220" y="350" text-anchor="middle" fill="#000000"><tspan>웰메이드</tspan></text>');
+			if($panzoom.find('>g').length){
+				$panzoom.find('>g').append(text);
+			} else {
+				$panzoom.append(text);
+			}
+		}
+	}
+	
+	function removeText() {
+		if($panzoom.attr('text')){
+			$panzoom.find('text').remove();
+			$panzoom.removeAttr('text')
+		}
+	}
+	
+	$('#demo_map').on('click', function (e) {
+		$.log('111a');
+		location.href = 'east.busan.map.svg.popup.html';
+		return false;
+	});
+	
+    $('#all').on('click', function (e) {
+		
+		$panzoom.panzoom("resetZoom").panzoom("resetPan");
+		removeText();
+		
+		return false;
+	});
+	$('#nike').on('click', function (e) {
+	    
+	    $panzoom.panzoom('zoom', false, {
+			increment: getIncrement(),
+			animate: true,
+			focal: e
+		});
+		$panzoom.panzoom("pan", 240, 180);
+		appendText();
+        return false;
+	});
+	
+	$('#north').on('click', function (e) {
+	    
+	    $panzoom.panzoom('zoom', false, {
+			increment: getIncrement(),
+			animate: true,
+			focal: e
+		});
+		$panzoom.panzoom("pan", -180, 180);
+		appendText();
+        return false;
+	});
+	
+	$('#wellmade').on('click', function (e) {
+	    
+	    $panzoom.panzoom('zoom', false, {
+			increment: getIncrement(),
+			animate: true,
+			focal: e
+		});
+		$panzoom.panzoom("pan", 200, 160);
+  		appendText();
+  		
+        return false;
+	});
+	
+	
+	function getIncrement(){
+		var matrix = $panzoom.panzoom("getMatrix");
+		var ma = parseFloat(matrix[0], 10);
+		
+		return parseFloat((2- ma), 10) ;
+	}
+	
+	//============================================================
+});
+
+
+
+</script>
+</body>
+</html>

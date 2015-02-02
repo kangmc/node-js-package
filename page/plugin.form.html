@@ -1,0 +1,39 @@
+<h2>jQuery Plugin : Form</h2>
+<div class="desc">
+	form 전송의 비동기 처리를 지원하는 Plugin<br><br>
+	
+	참조 : <a href="http://malsup.com/jquery/form/" target="_blank">jQuery Form Plugin</a>
+</div>
+<article>
+	<h3>Html</h3>
+	<div class="code">
+		<pre class="brush: xml;">
+			&lt;script src="./scripts/jquery/plugin/jquery.form.min.js">&lt;/script>
+			
+			&lt;form id="myForm" action="comment.php" method="post"> 
+			    Name: &lt;input type="text" name="name" /> 
+			    Comment: &lt;textarea name="comment">&lt;/textarea> 
+			    &lt;input type="submit" value="Submit Comment" /> 
+			&lt;/form>
+		</pre>
+	</div>
+	<h3>Js</h3>
+	<div class="code">
+		<pre class="brush: js;">
+	        (function( $, window, document){
+				$(function(){
+					//======================== page initialize ===================
+					
+					var options =  {
+							beforeSubmit 	: function () {},		// beforeHandler : use validate, loading...
+							success 		: function () {}		// successHandler
+						};
+					
+					$('#myForm').ajaxForm(options);
+		            
+					//============================================================
+				});
+			})( jQuery, window, document );
+		</pre>
+	</div>
+</article>

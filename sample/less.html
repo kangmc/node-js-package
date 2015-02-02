@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+    <title>UI Script Guide ( jQuery-Based )</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" /> -->
+    <link rel="stylesheet/less" type="text/css" href="../styles/default.less" media="all" />
+    
+	<!-- syntaxhighlighter -->
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter/styles/shCoreDefault.css"/>
+    <script type="text/javascript" src="../syntaxhighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushXml.js"></script>
+	<script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+	
+    <!--[if lt IE 9]>
+        <script src="../scripts/lib/html5.js"></script>
+    <![endif]-->
+    <!-- modernizr -->
+	<script type="text/javascript" src="../scripts/lib/modernizr.full.min.js"></script>
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>						<!-- jrx -->
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>									<!-- global init -->
+    
+    <!-- jquery : ui -->
+    <script src="../scripts/jquery/ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../scripts/jquery/ui/jquery-ui.min.css" media="all" />
+</head>
+<body>
+
+<div id="document">
+	<div id="header">
+
+		<h1><a id="header_logo">UI Script Guide ( jQuery-Based )</a></h1>
+		<nav id="nav">
+		</nav>
+	</div>
+
+	<div id="contents">
+		<div class="content-wrap">
+			<aside>
+				<nav id="lnb"></nav>
+			</aside>
+			<div class="content-area">
+				<div class="sub-content">
+					<form name="frm" id="frm" action="" >
+					<input type="hidden" name="uploadDir" value="sample"/>
+					<article>
+						<div class="table-menu">
+							<div class="left">
+								<!-- <button class="btn-type-2">삭제</button> -->
+							</div>
+							<div class="right">
+								<button class="btn-type-1" name="btn_save">등록</button>
+								<button class="btn-type-2" name="btn_cancel">취소</button>
+							</div>
+						</div>
+						<div class="table-type-2">
+							<table>
+								<colgroup>
+									<col width="18%" />
+									<col />
+									<col width="18%" />
+									<col />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>히든필드 카운트 처리</th>
+										<td colspan="3">
+											<p class="form-title">
+												<input type="text" value="0" name="count" id="count" required="required" count="1" data-title="히든필드 카운트" readonly="readonly" />
+												<button class="btn-type-1" name="btn_plus"> + </button>
+												<button class="btn-type-2" name="btn_minus"> - </button>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<th>제목 (+)</th>
+										<td colspan="3">
+											<p class="form-title">
+												<input type="text" id="title" name="title" class="input-block-level" required="required" maxlength="100" data-title="제목" placeholder="제목을 입력하세요." />
+												<span>(유효성 검사)</span>
+											</p>
+										</td>
+									</tr>
+									
+									<tr>
+										<th>이메일</th>
+										<td colspan="3">
+											<p class="form-title">
+												<input type="text" id="search_man" name="search_man" class="input-block-level input-w100" required="required" email="email" data-title="이메일" />
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<th>날짜 선택</th>
+										<td colspan="3">
+											<p class="form-title">
+												<input type="text" id="date_example" date="date" required="required" data-title="날짜" class="input-block-level input-w200" />
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<th>내용 (+)</th>
+										<td colspan="3">
+											<div class="content">
+												<textarea id="text_contents" class="editor" style="height:300px;" ></textarea>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>첨부파일</th>
+										<td colspan="3" class="file-add">
+											<span class="input_file">
+												<input type="file" name="file" id="file"/>
+												<button class="btn-type-3" id="file_upload_btn">등록</button>
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<th>비밀번호</th>
+										<td colspan="3">
+											<p class="form-title">
+												<input type="text" id="pwd" name="pwd" class="input-block-level" required="required" maxlength="100" data-title="비밀번호" />
+												<span>(유효성 검사)</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<th>비밀번호 확인</th>
+										<td colspan="3">
+											<p class="form-title">
+												<input type="text" id="pwd_chk" name="pwd_chk" class="input-block-level" equalTo="#pwd" required="required" maxlength="100" data-title="비밀번호 확인" />
+												<span>(유효성 검사)</span>
+											</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="table-menu">
+							<div class="left">
+								<!-- <button class="btn-type-2">삭제</button> -->
+							</div>
+							<div class="right">
+								<button class="btn-type-1" name="btn_save">등록</button>
+								<button class="btn-type-2" name="btn_cancel">취소</button>
+							</div>
+						</div>
+					</article>
+					
+					</form>
+				</div>
+				<div class="fixed" style="right:30px;bottom:50px;">
+					<button class="btn-type-1" id="top">Top</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="footer">
+		<h1><img src="" alt="Logo" /></h1>
+		<address class="copy"><p>(c) MZ Dev. All rights reserved.</p></address>
+	</footer>
+</div>
+
+<script>
+(function( $, window, document){
+	$(function(){
+		//======================== page initialize ===================
+		
+		var 
+			$frm = $('#frm');
+		
+		$frm.find('button[name=btn_save]').on('click', saveListener);
+		$frm.find('button[name=btn_cancel]').on('click', cancelListener);
+		
+		$frm.find('button[name=btn_plus]').on('click', plusListener);
+		$frm.find('button[name=btn_minus]').on('click', minusListener);
+		
+		$.validate.extend();
+		$.validate.init();
+		$frm.validate();
+		
+		function saveListener () {
+			$frm.submit();
+			return false;
+		}
+		
+		function cancelListener () {
+			return false;
+		}
+		
+		function plusListener () {
+			$.log('plus click');
+			setCount(true);
+			return false;
+		}
+		
+		function minusListener () {
+			setCount(false);
+			return false;
+		}
+		
+		function setCount (isPlus) {
+			var count = parseInt($('#count').val(), 10);
+			
+			count = isPlus ? count + 1 : count && count - 1;
+			$.log('current count : ' + count);
+			$('#count').val(count);
+		}
+		//============================================================
+	});
+})( jQuery, window, document );
+</script>
+</body>
+</html>

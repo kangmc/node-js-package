@@ -1,0 +1,221 @@
+<h2>Project guide</h2>
+<div class="desc">
+	<ul>
+		<li>1. js 파일등록</li>
+		<li>2. Global Initialize</li>
+		<li>3. Page Initialize</li>
+		<li>4. Folder Structure</li>
+		<li>
+			5. Rule
+			<ul>
+				<li>5-1. Naming Rule</li>
+				<li>5-2. Plugin Rule</li>
+				<li>5-3. Code Rule</li>
+			</ul>
+		</li>
+	</ul>
+	
+	<br><br>
+	
+	플로그인은 프로젝트단위로 packaging 하여 사용한다.<br>
+	플러그인 제작시 한개 파일은 50 KB 를 넘지 않도록 한다.
+</div>
+
+<article>
+	<h3>1. js 파일 등록</h3>
+	<div class="desc">
+		아래의 내용을 <b>&lt;/head&gt;</b> Tag 바로 위에 작성한다.
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			&lt;script src="./scripts/jquery/jquery-1.10.2.min.js">&lt;/script>				<!-- jquery -->
+		    &lt;script src="./scripts/jquery/plugin/jquery.plugin.pkg.js">&lt;/script>		<!-- jquery : plugin package -->
+			&lt;script src="./scripts/jrx/jrx.min.js">&lt;/script>						<!-- jrx -->
+			
+			&lt;script src="./scripts/init.js">&lt;/script>									<!-- initialize -->
+		</pre>
+		
+	</div>
+</article>
+
+<article>
+	<h3>2. Initialize</h3>
+	<div class="desc">
+		동일하게 적용되어야하는 script는 <b>scripts/init.js</b> 파일에 작성한다.<br>
+		application configuration, ajax 설정 정보 등을 여기서 작성한다.
+	</div>
+	<div class="code">
+		<h4 class="small">Example</h4>
+		<pre class="brush: js;">
+			(function( $, window, document){
+				$(function(){
+					
+					//================== application configuration ===============
+					var _appconfig = {
+							"useLog" : true
+						};
+					// set application configuration.
+					$.config(_appconfig);
+					
+					//...        
+					//============================================================
+					
+					//...
+					
+					//===================== global initialize ====================
+					// {Here!!!}
+					//============================================================
+					
+					//...
+					
+				});
+			})( jQuery, window, document );
+		</pre>
+		
+	</div>
+
+</article>
+
+<article>
+	<h3>3. JavaScript Code Block (Page)</h3>
+	<div class="desc">
+		page 에 작성되어야 하는 script 는 <b>&lt;/body&gt;</b> Tag 바로 위에 작성한다.
+	</div>
+	<div class="code">
+		<h4 class="small">Example</h4>
+		<pre class="brush: xml;">
+			&lt;script>
+			(function( $, window, document){
+				$(function(){
+					
+					//======================== page initialize ===================
+					// {Here!!!}
+					//============================================================
+					
+				});
+			})( jQuery, window, document );
+			&lt;/script>
+			&lt;/body>
+		</pre>
+		
+	</div>
+
+</article>
+
+
+<article>
+	<h3>4. Folder Structure</h3>
+	<div class="desc">
+		Scripts 폴더의 구조를 설명한다.<br><br>
+		(d) scripts : 모든 scirpt 파일을 저장한다.<br>
+		(d) scripts > lib : jquery 를 제외한 모든 scirpt 파일을 저장한다.<br>
+		(d) scripts > jquery : jquery 관련된 모든 파일을 저장한다.<br>
+		(d) scripts > jquery > plugin : jquery plugin 파일을 저장한다.<br>
+		 
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			scripts/
+				jquery/ 
+					jquery-1.10.2.min.js
+					jquery-1.10.2.min.map
+					plugin/
+						jquery.dotdotdot.js
+						jquery.validate.js
+						...
+				jrx/
+					jrx.extend.js
+					jrx.full.js
+					jrx.min.js
+					jrx.init.js
+					jrx.js
+				lib/
+					html5.js
+					modernizr.full.min.js
+					skrollr.js
+					...
+		</pre>
+		
+	</div>
+
+</article>
+
+<article>
+	<h3>5. Rule</h3>
+	<div class="desc">
+		Camel Case, Pascal Case.
+	</div>
+	<div class="code">
+		<h4>5-1. Naming Rule</h4>
+		<pre class="brush: js;">
+			// variable : Camel Notation.
+			var 
+			
+			// class : Pascal Notation.
+			function ClassName (){
+				
+			}
+			
+			// function : Camel Notation.
+			function func () {}
+			
+		</pre>
+		
+		<h4>5-2. Plugin Rule</h4>
+		<div class="desc">
+			- 프로젝트별 plugin.package 를 작성하여 사용한다.<br>
+			- 모든 플러그 인은 minify 상태로 사용한다.
+		</div>
+		
+		<h4>5-3. Code Rule</h4>
+		<div class="desc">
+			- 가급적 <b>전역으로</b> 설정되는 변수, 함수를 사용하지 않는다.<br>
+			- 단일 var : 변수의 선언시 사용되는 var 는  연관영역 안에서 한번만 사용한다.<br>
+			- 변수 선언시 가급적 초기값을 지정한다.<br>
+			- for 문 작성시 length 를 저장하여 사용한다.
+		</div>
+		<pre class="brush: js;">
+			// 전역 침범하지 않기
+			(function() {
+				// blah, blah...
+			})();
+			
+			// 단일 var
+			var var1, var2, arr1, arr2;
+			
+			// 초기값 지정
+			var str1 = '',
+				str2 = '',
+				num1 = 1,
+				arr1 = [];
+			
+			// for 문 length 저장
+			var i = 0, len = 0;
+			for(i = 0, len = 10, i &lt; 10; i ++) {
+				// some...
+			}
+			
+		</pre>
+	</div>
+
+</article>
+
+<!-- <article>
+	<h3>6. JavaScript Specificity</h3>
+	<div class="code">
+		<h4>6-1. Hoisting</h4>
+		<pre class="brush: js;">
+		</pre>
+		
+		<h4>6-2. scope</h4>
+		<div class="desc">
+		</div>
+		
+		<h4>6-3. this</h4>
+		<div class="desc">
+		</div>
+		<pre class="brush: js;">
+		</pre>
+	</div>
+
+</article> -->

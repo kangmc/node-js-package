@@ -1,0 +1,74 @@
+<h2>jQuery Plugin : layer</h2>
+<div class="desc">
+	레이어 형태의 팝업을 띄운다.<br />
+	기본적으로는 하나만 존재하도록 내부 로직이 처리되기 때문에 별도로 띄워야할 경우 id를 부여해서 구분해야함. <br />
+	function: show, hide, remove, add, clear<br />
+	최초 선언시 body에 자동 추가됨<br /><br />
+	<a href="sample/layer.html" target="_blank">샘플 바로가기</a>
+</div>
+
+<article style="display:none;">
+	<h3 id="/ref/global">Global</h3>
+	<div class="desc">
+		동일하게 적용되어야하는 script는 <b>scripts/jquery/jquery.init.js</b> 파일에 작성한다.
+	</div>
+	<div class="code">
+		<h4 class="small">Use Case</h4>
+		<pre class="brush: js;">
+			(function( $, window, document){
+				$(function(){
+					
+					
+					
+				});
+			})( jQuery, window, document );
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3 id="/ref/page">Page</h3>
+	<div class="desc">
+		page 에 작성되어야 하는 script 는 <b>&lt;/body&gt;</b> Tag 바로 위에 작성한다.
+	</div>
+	<div class="code">
+		<h4 class="small">Use Case</h4>
+		<pre class="brush: xml;">
+			&lt;script>
+			(function( $, window, document){
+				$(function(){
+					
+					//======================== page initialize ===================
+					var popup = $.layerPopup(
+						id: 'layer의 최상위 element에 지정되는 id, 기본값은 layer'
+						html: '팝업내용',
+						target: '대상 element의 id',
+						attr: {
+							style: 'css style 지정',
+							... : 추가 할 attribute는 attr내부에 작성 
+						}
+					);
+					
+					popup.show(); // 보이기
+					popup.hide(); // 숨기기
+					popup.remove(); // 제거
+					//============================================================
+					
+				});
+			})( jQuery, window, document );
+			&lt;/script>
+			&lt;/body>
+		</pre>
+		
+	</div>
+
+</article>
+<div class="fixed" style="right:20px;bottom:50px;">
+	<button class="btn-type-1" id="top">Top</button>
+</div>
+
+<script>
+	$(function() {
+		console.log('document ready');
+	});
+</script>

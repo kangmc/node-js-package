@@ -1,0 +1,75 @@
+<h2 class="page-header">Rule</h2>
+<div class="desc">
+
+	<ul>
+		<li>Naming Rule</li>
+		<li>Code Rule</li>
+	</ul>
+</div>
+
+<article>
+	<h3 class="sub-header">Naming Rule</h3>
+	<div class="desc">
+		Camel Case : 변수, 함수명, 인스턴스<br>
+		Pascal Case : Class 명<br>
+		Upper Case : <br>
+		$ : jQuery 롤 Select 한 객체는 prefix 로 '$' 를 사용한다. 
+	</div>
+	<div class="code">
+		
+		<pre class="brush: js;" title="Camel Case">
+			// 변수
+			var str, i, arr;
+			
+			// 함수
+			function func () {}
+			
+			// 인스턴스
+			var now = new Date();
+		</pre>
+		<pre class="brush: js;" title="Pascal Case">
+			// 클래스 명
+			function ClassName (){
+				
+			}
+		</pre>
+		<pre class="brush: js;" title="jQuery Select DOM">
+			// jQuery DOM
+			var $target = $('#targetId');
+		</pre>
+	</div>
+</article>
+<article>
+	<h3 class="sub-header">Code Rule</h3>
+	<div class="desc">
+		- 가급적 <b>전역으로</b> 설정되는 변수, 함수를 사용하지 않는다.<br>
+		- 단일 var : 변수의 선언시 사용되는 var 는  연관영역 안에서 한번만 사용한다.<br>
+		- 변수 선언시 가급적 초기값을 지정한다.<br>
+		- for 문 작성시 length 를 저장하여 사용한다.
+	</div>
+	<div class="code">
+		
+		<pre class="brush: js;">
+			// 전역 침범하지 않기
+			(function() {
+				// blah, blah...
+			})();
+			
+			// 단일 var
+			var var1, var2, arr1, arr2;
+			
+			// 초기값 지정
+			var str1 = '',
+				str2 = '',
+				num1 = 1,
+				arr1 = [];
+			
+			// for 문 length 저장
+			var i = 0, len = 0;
+			for(i = 0, len = 10, i &lt; 10; i ++) {
+				// some...
+			}
+			
+		</pre>
+	</div>
+</article>

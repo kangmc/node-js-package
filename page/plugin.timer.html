@@ -1,0 +1,171 @@
+<h2>jQuery Plugin : Timer</h2>
+<div class="desc">
+	<ul>
+		<li>1. Initialize</li>
+		<li>2. Validate</li>
+		<li>3. 문구 우선 순위</li>
+	</ul>
+	<br><br>
+	
+	Sample Page : <a href="sample/timer.html" target="_blank">Local Sample</a><br>
+	참조 : <a href="http://jqueryvalidation.org" target="_blank">jQuery.validator</a>
+</div>
+<article>
+	<h3>1. Initialize</h3>
+	<div class="desc">
+		전역/페이지 script 영역에서 $.fn.validate 함수의 실행으로 초기화 시킨다.<br>
+		$('form').validate();
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			...
+		    &lt;script src="../scripts/jquery/plugin/jquery.validte.js">&lt;/script>
+		    ...
+		    &lt;form id="frm">
+		    	&lt;input type="text" required="required" data-title="" />
+		    &lt;/form>
+		    &lt;script>
+		    	$('#frm').validate();
+		    &lt;/script>
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3>2. Validate</h3>
+	<div class="desc">
+		Validate 는 Element 의 Attribute 추가로 설정할 수 있다.
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			
+			&lt;!-- required : 필수 입력 항목 -->
+			&lt;input type="text" required="required" />
+			
+			&lt;!-- email : 이메일 형식 (aaa@domain.com) -->
+			&lt;input type="text" email="email" />
+			
+			&lt;!-- url : 웹페이지 주소 형식 (htttp://www.domain.com) -->
+			&lt;input type="text" url="url" />
+			
+			&lt;!-- date : 날짜 형식 체크 -->
+			&lt;input type="text" date="date" />
+			
+			&lt;!-- dateISO : ISO 표준 날짜 형식 체크 -->
+			&lt;input type="text" dateISO="dateISO" />
+			
+			&lt;!-- number : 실수 형식 체크 (ex : 1, 1.3) -->
+			&lt;input type="text" number="number" />
+			
+			&lt;!-- digits : 자연수 형식 체크 -->
+			&lt;input type="text" digits="digits" />
+			
+			&lt;!-- creditcard : 카드번호 형식 체크 -->
+			&lt;input type="text" creditcard="creditcard" />
+			
+			&lt;!-- engnum : 영문, 숫자 허용 -->
+			&lt;input type="text" engnum="engnum" />
+			
+			&lt;!-- equalTo : 값 비교 id selector 지정 -->
+			&lt;input type="text" equalTo="#id" />
+			
+			&lt;!-- maxlength : 최대 글자수 -->
+			&lt;input type="text" maxlength="3" />
+			
+			&lt;!-- minlength : 최소 글자수 -->
+			&lt;input type="text" minlength="2" />
+			
+			&lt;!-- length : 글자수 지정 -->
+			&lt;input type="text" length="3" />
+			
+			&lt;!-- rangelength : 글자수 범위지정 -->
+			&lt;input type="text" rangelength="3,5" />
+			
+			&lt;!-- range : 입력 숫자 범위 지정 -->
+			&lt;input type="text" range="3,5" />
+			
+			&lt;!-- max : 입력 숫자 최대값 -->
+			&lt;input type="text" max="5" />
+			
+			&lt;!-- min : 입력 숫자 최소값 -->
+			&lt;input type="text" min="2" />
+			
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3>3. 문구 우선 순위</h3>
+	<div class="desc">
+		1. 타겟 문구<br>
+			a. 요소의 data-title Attribute > 
+			b. wrapping 하고 있는 label 요소의 문구 > 
+			c. 요소의 placeholder > 
+			d. 요소의 name<br><br>
+			
+		2. 설명 문구<br>
+		요소의 data-message Attribute > 기본 문구<br>
+		기본 문구 설정은 scripts/jquery/jquery.utils.js 파일의 validate.extend 함수에서  수정할 수 있다.
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			<!-- 타겟문구 우선순위 1. 요소의 data-title Attribute -->
+			&lt;input type="text" data-title="이름" />
+			
+			<!-- 타겟문구 우선순위 2. wrapping 하고 있는 label 요소의 문구 -->
+			&lt;label>이름
+			&lt;input type="text" data-title="" />
+			&lt;/label>
+			
+			<!-- 타겟문구 우선순위 3. 요소의 placeholder -->
+			&lt;input type="text" placeholder="이름" />
+			
+			<!-- 타겟문구 우선순위 4. 요소의 name-->
+			&lt;input type="text" name="name" />
+			
+			<!-- 설명문구 변경. 요소의 data-message-->
+			&lt;input type="text" name="name" data-message="은 도메인 형식입니다." />
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3>자동설정 제거 옵션</h3>
+	<div class="desc">
+		form Tag 에 novalidate="novalidate" Attribute 를 추가하여 validate를 예외로 처리할 수 있다.
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			&lt;form novalidate="novalidate">
+			...
+			&lt;form>
+			
+			&lt;script>
+				$frm.valid();??
+				$frm.validate({
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+          	&lt;/script>
+		</pre>
+	</div>
+
+</article>
+
+
+
+<article>
+	<h3>조건 추가</h3>
+	<div class="desc">
+		validate 조건을 추가할 수 있다.<br>
+		참조 : <a href="http://jqueryvalidation.org/jQuery.validator.addMethod" target="_blank">jQuery.validator.addMethod</a>
+	</div>
+	<div class="code">
+		<pre class="brush: js;">
+			jQuery.validator.addMethod("domain", function(value, element) {
+				return this.optional(element) || /^http:\/\/mycorporatedomain.com/.test(value);
+			}, "Please specify the correct domain for your documents");
+		</pre>
+	</div>
+</article>

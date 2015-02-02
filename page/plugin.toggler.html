@@ -1,0 +1,31 @@
+<h2>jQuery Plugin : Toggler</h2>
+<div class="desc">
+	
+	버튼 클릭시 특정 영역을 toggler.<br> 
+	trigger button click > toggle_area toggling<br><br>
+	
+	* options <br>
+	- target {jQuery Selector} : toggle target<br>
+	- close {jQuery Selector} : target 내부에 닫기 버튼이 존재하는 경우 사용.<br>
+	- toggleClass {String} : 기본동작은 display:none/block 이지만 class 값으로 toggle 되도록 변경이 필요한 경우 사용.<br>
+	- isDocTrigger {Boolean} : target 이외의 document 영역을 클릭시 자동으로 닫히게 하는 설정.<br>
+	- toggle {Function} : toggle 될 때마다 항상 동작하는 함수. <br>
+	- beforeShow {Function} : show 전에 동작하는 함수. <br>
+	- afterHide {Function} : hide 후에 동작하는 함수. <br>
+	
+</div>
+<article>
+	<div class="code">
+		<pre class="brush: xml;" title="">
+			&lt;button type="button" id="btn_toggle" title="Toggle">Toggle&lt;/button>
+			&lt;div id="toggle_area">&lt;/div>
+			
+			&lt;script>
+		    	$('#btn_toggle').toggler({
+		        	target : '#toggle_area'
+		        });
+		    &lt;/script>
+		</pre>
+	</div>
+</article>
+

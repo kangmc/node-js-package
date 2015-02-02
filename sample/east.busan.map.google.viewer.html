@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Map Google API Sample</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" /> -->
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>							<!-- jrx -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>
+    
+    <style>
+    html,body {height:100%;}
+    a {color:inherit; text-decoration:none;}
+    #navi ul {padding-bottom : 20px;list-style-type : none;clear:both;}
+    #navi li {float:left;width:25%;font-size:0.8em;}}
+	#map-canvas {width : 100%;border :1px solid #aaaaaa;margin: 0px;padding: 0px;}
+    </style>
+    <style>
+      #map-canvas {
+        width : 100%;
+        height: 340px;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+</head>
+<body>
+
+<div id="map-canvas"></div>
+
+<script>
+$(function(){
+	//======================== page initialize ===================
+	var objLatlng = {
+		center : {lat:-50, lng:170},
+		polo : {lat:-70, lng:90},
+		hazzys : {lat:-50, lng:170}
+	};
+	
+	// var map = null;
+	var moonTypeOptions = {
+  		getTileUrl: function(coord, zoom) {
+      		
+      		var normalizedCoord = getNormalizedCoord(coord, zoom);
+      		if (!normalizedCoord) {
+        		return null;
+      		}
+      		
+      		
+      		var imageUrl = '';
+      		imageUrl = $.config('contextPath') + 'images/map.0.jpg';   
+      		
+      		if(zoom == 0){
+        		// imageUrl = $.config('contextPath') + 'images/map.' + zoom + '.jpg';    
+      		} else {
+        		imageUrl = $.config('contextPath') + 'images/map.' + zoom + '.' + normalizedCoord.x + '.' + normalizedCoord.y + '.jpg';
+      		}
+      
+      		return imageUrl;
+  		},
+  		tileSize: new google.maps.Size(480, 260),
+  		maxZoom: 2,   // 9
+  		minZoom: 0,
+  		zoom : 0,
+  		// radius: 1,  //1738000
+  		name: 'floor'
+	};
+
+	var moonMapType = new google.maps.ImageMapType(moonTypeOptions);
+
+	function initialize() {
+  		var myLatlng = new google.maps.LatLng(-10, 160);
+  		var mapOptions = {
+    		center: myLatlng,
+    		zoom: 0,
+    		scrollwheel: true,
+    		streetViewControl: false,
+    		mapTypeControlOptions: {
+      			mapTypeIds: ['floor']
+   			}
+  		};
+
+  		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  		
+		map.mapTypes.set('floor', moonMapType);
+  		map.setMapTypeId('floor');
+  		
+  		google.maps.event.addListener(map, 'center_changed', function() {
+			checkBounds();
+		});
+		//zoom_changed
+		
+  		allowedBounds = new google.maps.LatLngBounds(
+	    	new google.maps.LatLng(-50, 150),
+	    	new google.maps.LatLng(50,170)
+	    	
+			);
+			
+	// var allowedBounds = new google.maps.LatLngBounds(
+    	// new google.maps.LatLng(41.65200239592201, -87.66565397011107),
+		// new google.maps.LatLng(41.903255924231566, -87.57922246681517));
+		
+		function checkBounds() {
+			
+			// $.log(map.getCenter());
+			// $.log(allowedBounds.contains(map.getCenter()));
+			
+			// map.setCenter(myLatlng);
+			
+			return;
+			
+	    	if(allowedBounds.contains(map.getCenter())) {
+	        	return;
+			}
+			// return;
+			$.log('-----------');
+			
+			var mapCenter = map.getCenter();
+			var X = mapCenter.lng();
+			var Y = mapCenter.lat();
+	
+			var AmaxX = allowedBounds.getNorthEast().lng();
+			var AmaxY = allowedBounds.getNorthEast().lat();
+			var AminX = allowedBounds.getSouthWest().lng();
+			var AminY = allowedBounds.getSouthWest().lat();
+	 
+			if (X < AminX) {X = AminX;}
+			if (X > AmaxX) {X = AmaxX;}
+			if (Y < AminY) {Y = AminY;}
+			if (Y > AmaxY) {Y = AmaxY;}
+	       
+			map.setCenter(new google.maps.LatLng(Y,X));
+		}
+		
+  		var marker = new google.maps.Marker({
+	      	position: new google.maps.LatLng(0,0), //myLatlng,
+	      	map: map,
+	      	title: 'Hello World!'
+	  	});
+	}
+
+	// Normalizes the coords that tiles repeat across the x axis (horizontally)
+	// like the standard Google map tiles.
+	function getNormalizedCoord(coord, zoom) {
+	  	var y = coord.y;
+	  	var x = coord.x;
+	
+	  	// tile range in one direction range is dependent on zoom level
+	  	// 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+	  	var tileRange = 1 << zoom;
+	    
+	    
+	  	// don't repeat across y-axis (vertically)
+	  	if (y < 0 || y >= tileRange) {
+	    	return null;
+	  	}
+	
+	  	// repeat across x-axis
+	  	if (x < 0 || x >= tileRange) {
+	      	return null;
+	    	// x = (x % tileRange + tileRange) % tileRange;
+	  	}
+		
+  		return {
+    		x: x,
+    		y: y
+  		};
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+	
+	
+	
+
+	$('#all').on('click', function () {
+		
+		var myLatlng = new google.maps.LatLng(-10, 160);
+		setPosition(myLatlng);
+		
+		return false;
+	});
+	$('#nike').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(70, 0);
+	    
+  		setPosition(myLatlng, 2);
+        return false;
+	});
+	$('#reebok').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(70, 75);
+	    
+  		setPosition(myLatlng, 2);
+  		
+  		
+        return false;
+	});
+	$('#wellmade').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(-10, 65);
+	    
+  		setPosition(myLatlng, 2);
+  		
+  		
+        return false;
+	});
+	
+	function setPosition (latlng, zoom) {
+		zoom = zoom || 0;
+		if(!latlng)return;
+		map.setZoom(zoom);
+  		map.setCenter(latlng);
+	}
+
+
+	//============================================================
+});
+
+
+
+</script>
+</body>
+</html>

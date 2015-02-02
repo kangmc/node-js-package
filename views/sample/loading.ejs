@@ -1,0 +1,19 @@
+<%- contentFor('subcontent') %>
+<h2>group check</h2>
+<ul>
+	<li><button id="loading_show" type="button">Show</button></li>
+	<li><button id="loading_hide" type="button">Hide</button></li>
+</ul>
+
+<%- contentFor('script') %>
+<script>
+$(function(){
+	$('#loading_show').on('click', function(e) {
+		$.loading.show();
+	});
+
+	$('#loading_hide').on('click', function(e) {
+		$.loading.hide();
+	});
+});
+</script>

@@ -1,0 +1,143 @@
+<h2 class="page-header">Selector Performance</h2>
+<div class="desc">
+	jQuery Selector 작성 방식을 이해하고 DOM Search 를 최소화 한다.<br>
+	하기 일부 내용은 jquery 사이트 내용을 번역한 내용입니다.<br>
+	참고 : http://learn.jquery.com/performance/optimize-selectors/
+</div>
+
+<article>
+	<h3 class="sub-header">DOM Search 횟수 줄이기</h3>
+	<div class="desc">
+		1. DOM address Stored.<br>
+		2. Use Chainning.<br>
+		3. Rendering 횟수를 최소화 한다.
+	</div>
+	<div class="code">
+		<h4 class="small">1. DOM address Stored</h4>
+		<div class="desc">
+			동일한  Selector 가 두번이상 나오는 경우, 처음 Selected 한 정보를 변수에 저장하여 사용한다.
+		</div>
+		<pre class="brush: js;">
+			// Unoptimized:
+			function someFunction(){
+				
+				$('#contents').height(100);
+				$('#contents').append('<div>some string</div>');
+				$('#contents').find('.item').remove();
+			}
+			
+			// Optimized:
+			function someFunction(){
+				
+				var $contents = $('#contents');
+				
+				$contents.height(100);
+				$contents.append('<div>some string</div>');
+				$contents.find('.item').remove();
+			}
+		</pre>
+		
+		<h4 class="small">2. Use Chaining.</h4>
+		<pre class="brush: js;">
+			// Unoptimized:
+			var $this = $(this);
+			$this.parent().addClass('on');
+			$this.parent().siblings().removeClass('on');
+			
+			// Optimized:
+			$(this).parent().addClass('on').siblings().removeClass('on');
+		</pre>
+		
+		<h4 class="small">3. Rendering 횟수를 최소화 한다.</h4>
+		<pre class="brush: js;">
+			// Unoptimized:
+			var i = 0, len = 100,
+				$contents = $('#contents ul.list');
+				
+			for(i = 0;i $lt; len; i ++ ){
+				$contents.append('&lt;li>' + i + '&lt;/li>');
+			}
+			
+			// Optimized:
+			var i = 0, len = 100, items = '',
+				$contents = $('#contents ul.list');
+				
+			for(i = 0;i $lt; len; i ++ ){
+				items += '&lt;li>' + i + '&lt;/li>';
+			}
+			$contents.html(items);
+			
+		</pre>
+		
+	</div>
+	
+</article>
+
+<article>
+	<h3 class="sub-header">jQuery Selector Engine</h3>
+	<div class="desc">
+		jQuery Selector 의 겸색 알고리즘은 Sizzle 라이브러리를 기반으로 작성되어 Right to Left 방식으로 검색합니다.<br>
+		1. ID 를 기본으로 작성한다.<br>
+		2. Selector 를 id 만으로 작성하는것이 더 빠르다.<br>
+		3. Selector Engine 동작.<br>
+		4. 과도한 특이성은 피한다.<br>
+		5. 전체선택자를 피한다.
+	</div>
+	<div class="code">
+		<h4 class="small">1. ID 를 기본으로 작성한다.</h4>
+		<pre class="brush: js;">
+		// Fast:
+		$( "#container div.robotarm" );
+		 
+		// Super-fast:
+		$( "#container" ).find( "div.robotarm" );
+		$( "div.robotarm", "#container" );
+		</pre>
+		
+		<h4 class="small">2. Selector 를 id 만으로 작성하는것이 더 빠르다.</h4>
+		<div class="desc">
+			id 만 사용하는 경우 seletor engine 을 거치지 않기때문에 id만으로 selection 해서 find() 하는 것이 더 빠르다.
+		</div>
+		<pre class="brush: js;">
+		// Fast:
+		$( "#container div.robotarm" );
+		 
+		// Super-fast:
+		$( "#container" ).find( "div.robotarm" );
+		</pre>
+		
+		<h4 class="small">3. Selector Engine 동작.</h4>
+		<div class="desc">
+			Selector Engine 의 동작이 Right to Left 이기 때문에 오른쪽의 내용을 구체적으로 작성하는것이 더 빠르다.
+		</div>
+		<pre class="brush: js;">
+		// Unoptimized:
+		$( "div.data .gonzalez" );
+		 
+		// Optimized:
+		$( ".data td.gonzalez" );
+		</pre>
+		
+		<h4 class="small">4. 과도한 특이성은 피한다.</h4>
+		<div class="desc">
+			공백을 기준으로 Selector Engine 이 동작하므로 Engine 을 여러번 거치게 된다.
+		</div>
+		<pre class="brush: js;">
+		$( ".data table.attendees td.gonzalez" );
+		 
+		// Better: Drop the middle if possible.
+		$( ".data td.gonzalez" );
+		</pre>
+		
+		<h4 class="small">5. 전체선택자를 피한다.</h4>
+		<pre class="brush: js;">
+		$( ".buttons > *" ); // Extremely expensive.
+		$( ".buttons" ).children(); // Much better.
+		 
+		$( ".category :radio" ); // Implied universal selection.
+		$( ".category *:radio" ); // Same thing, explicit now.
+		$( ".category input:radio" ); // Much better.
+		</pre>
+	</div>
+
+</article>

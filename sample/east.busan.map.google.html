@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Map Google API Sample</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" /> -->
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>							<!-- jrx -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>
+    
+    <style>
+    
+    
+    html,body {height:100%;margin:0px;padding:0px;}
+    a {color:inherit; text-decoration:none;}
+    
+    header {height :50px;clear:both;border :1px solid #aaaaaa;}
+    	header div {margin-left:10px;line-height:50px;}
+    	header div.title {margin: auto;width: 70%;text-align:center;}
+    
+    .left {left:0;position:absolute;}
+    .right {right:0;position:absolute;}
+    .desc {margin:0 10px;}
+    
+    section > div {clear:both;padding:15px 0;}
+	
+	div.images {height:100px;}
+    div.images .img { 
+    	width : 45%; 
+    	height : 100%;
+    	margin:auto;
+    	float:left;
+    	background-image: url('/images/prada.jpg');
+    	background-size : cover;
+    }
+    
+    #navi ul {padding-bottom : 20px;list-style-type : none;clear:both;}
+    #navi li {float:left;width:25%;font-size:0.8em;}
+    
+	#map-canvas {
+		width : 100%;
+		border :1px solid #aaaaaa;
+		margin: 0px;padding: 0px;
+        height: 270px;
+	}
+    </style>
+</head>
+<body>
+
+<div class="document" style="height:100%;">
+	<header>
+		<div class="left">
+			<button>이전</button>
+		</div>
+		<div class="title">프라다</div>
+		<div class="right"></div>
+	</header>
+	<nav id="navi">
+	    <ul>
+	        <li><a href="#all" id="all">전체</a></li>
+	        <li><a href="#nike" id="nike">나이키</a></li>
+	        <li><a href="#reebok" id="reebok">리복</a></li>
+	        <li><a href="#wellmade" id="wellmade">웰메이드</a></li>
+	    </ul>
+	</nav>
+	<section class="contents" style="margin-left:5px;margin-right:5px;">
+		<div class="images">
+			<div class="img"></div>
+			<div class="img"></div>	
+		</div>
+		<div class="desc">
+			1913년 이탈리아 밀라노에 가죽제품을 판매하는 프라텔리 프라다(Fratelli Prada)를 개설로 시작한 이탈리아의 명품 패션 브랜드이다.
+		</div>
+		<div id="map-canvas"></div>
+	</section>
+</div>
+
+<script>
+$(function(){
+	//======================== page initialize ===================
+	var objLatlng = {
+		center : {lat:-50, lng:170},
+		polo : {lat:-70, lng:90},
+		hazzys : {lat:-50, lng:170}
+	};
+	
+	// var map = null;
+	var moonTypeOptions = {
+  		getTileUrl: function(coord, zoom) {
+      		
+      		var normalizedCoord = getNormalizedCoord(coord, zoom);
+      		if (!normalizedCoord) {
+        		return null;
+      		}
+      		
+      		
+      		var imageUrl = '';
+      		imageUrl = $.config('contextPath') + 'images/map.0.jpg';   
+      		
+      		if(zoom == 0){
+        		imageUrl = $.config('contextPath') + 'images/' + zoom + '/' + normalizedCoord.x + '.' + normalizedCoord.y + '.jpg';
+      		} else {
+        		imageUrl = $.config('contextPath') + 'images/map.' + zoom + '.' + normalizedCoord.x + '.' + normalizedCoord.y + '.jpg';
+      		}
+      
+      		return imageUrl;
+  		},
+  		tileSize: new google.maps.Size(480, 260),
+  		maxZoom: 2,   // 9
+  		minZoom: 0,
+  		// zoom : 2,
+  		// radius: 1,  //1738000
+  		name: 'floor'
+	};
+
+	var moonMapType = new google.maps.ImageMapType(moonTypeOptions);
+
+	function initialize() {
+  		var myLatlng = new google.maps.LatLng(-10, 160);
+  		var mapOptions = {
+    		center: myLatlng,
+    		zoom: 0,
+    		scrollwheel: true,
+    		streetViewControl: false,
+    		mapTypeControlOptions: {
+      			mapTypeIds: ['floor']
+   			}
+  		};
+
+  		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  		
+		map.mapTypes.set('floor', moonMapType);
+  		map.setMapTypeId('floor');
+  		
+  		google.maps.event.addListener(map, 'center_changed', function() {
+			// checkBounds();
+			return false;
+		});
+				
+		
+  		allowedBounds = new google.maps.LatLngBounds(
+	    	new google.maps.LatLng(-50, 150),
+	    	new google.maps.LatLng(50,170)
+	    	
+			);
+			
+	// var allowedBounds = new google.maps.LatLngBounds(
+    	// new google.maps.LatLng(41.65200239592201, -87.66565397011107),
+		// new google.maps.LatLng(41.903255924231566, -87.57922246681517));
+		
+		function checkBounds() {
+			
+			// map.setCenter(myLatlng);
+			
+			return;
+			
+	    	if(allowedBounds.contains(map.getCenter())) {
+	        	return;
+			}
+			// return;
+			$.log('-----------');
+			
+			var mapCenter = map.getCenter();
+			var X = mapCenter.lng();
+			var Y = mapCenter.lat();
+	
+			var AmaxX = allowedBounds.getNorthEast().lng();
+			var AmaxY = allowedBounds.getNorthEast().lat();
+			var AminX = allowedBounds.getSouthWest().lng();
+			var AminY = allowedBounds.getSouthWest().lat();
+	 
+			if (X < AminX) {X = AminX;}
+			if (X > AmaxX) {X = AmaxX;}
+			if (Y < AminY) {Y = AminY;}
+			if (Y > AmaxY) {Y = AmaxY;}
+	       
+			map.setCenter(new google.maps.LatLng(Y,X));
+		}
+		
+  		// var marker = new google.maps.Marker({
+	      	// position: myLatlng,
+	      	// map: map,
+	      	// title: 'Hello World!'
+	  	// });
+	}
+
+	// Normalizes the coords that tiles repeat across the x axis (horizontally)
+	// like the standard Google map tiles.
+	function getNormalizedCoord(coord, zoom) {
+	  	var y = coord.y;
+	  	var x = coord.x;
+	
+		// $.log('zoom : ' + zoom + ', x : ' + x + ', y : ' + y);
+		
+	  	// tile range in one direction range is dependent on zoom level
+	  	// 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+	  	var tileRange = 1 << zoom;
+	    
+	    // $.log('tileRange : ' + tileRange);
+	    
+	    
+	    // no repeat.
+	  	// don't repeat across y-axis (vertically)
+	  	// if (y < 0 || y >= tileRange) {
+	    	// return null;
+	  	// }
+// 	
+	  	// // repeat across x-axis
+	  	// if (x < 0 || x >= tileRange) {
+	      	// // return null;
+	    	// x = (x % tileRange + tileRange) % tileRange;
+	  	// }
+	  	
+	  	
+	  	
+	  	// new condition
+	  	// if (y < -1 || y > 1) {
+	    	// return null;
+	  	// }
+// 	  	
+	  	// if (x < -1 || x > 1) {
+	    	// return null;
+	  	// }
+	  	
+		
+  		return {
+    		x: x,
+    		y: y
+  		};
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+	
+	
+	
+
+	$('#all').on('click', function () {
+		
+		var myLatlng = new google.maps.LatLng(-10, 160);
+		setPosition(myLatlng);
+		
+		return false;
+	});
+	$('#nike').on('click', function () {
+	    
+	    var myLatlng1 = new google.maps.LatLng(0, 0);
+	    
+  		setPosition(myLatlng1, 2);
+        return false;
+	});
+	$('#reebok').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(70, 75);
+	    
+  		setPosition(myLatlng, 2);
+  		
+  		
+        return false;
+	});
+	$('#wellmade').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(-10, 65);
+	    
+  		setPosition(myLatlng, 2);
+  		
+  		
+        return false;
+	});
+	
+	function setPosition (latlng, zoom) {
+		zoom = zoom || 0;
+		if(!latlng)return;
+		map.setZoom(zoom);
+  		map.setCenter(latlng);
+  		map.setMapTypeId('floor');
+	}
+
+
+	//============================================================
+});
+
+
+
+</script>
+</body>
+</html>

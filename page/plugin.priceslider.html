@@ -1,0 +1,52 @@
+<h2>jQuery Plugin : priceSlider</h2>
+<div class="desc">
+	
+	가격 정보 슬라이더 핸들러.
+	<br><br>
+		
+	* options <br>
+	- min {jQuery DOM} : min 값 표기 영역. SPAN<br>
+	- max {jQuery DOM} : max 값 표기 영역. SPAN<br>
+	- start {jQuery DOM} : start 값 표기 영역. INPUT<br>
+	- end {jQuery DOM} : end 값 표기 영역. INPUT<br>
+</div>
+<article>
+	<!-- <div class="desc">
+		
+		해당 모듈의 컨트롤은 Item 에 설정된 attribute 중 각 Tag의 name 을 참조합니다.<br>
+		item_detail : 상품의 상세 주소<br>
+		item_option : 상품의 옵션<br>
+		item_quantity : 상품의 수량<br>
+		
+		btn_item_detail : 툴박스의 상세보기<br>
+		btn_item_zzim : 툴박스의 찜하기<br>
+		btn_item_cart : 툴박스의 카트에 담기<br>
+		
+		btn_option_cart : 옵션 레이어의 카트에 담기<br>
+		btn_option_close : 옵션 레이어의 닫기
+	</div> -->
+	<div class="code">
+		<pre class="brush: xml;" title="">
+			&lt;div class="input-price-wrap">
+				&lt;input type="tel" id="search_price_start" title="최소 가격 입력하기" value="5000"/> 원 ~ &lt;input type="tel" id="search_price_end" title="최대 가격 입력하기" value="70000"/> 원
+			&lt;/div>
+
+			&lt;div class="slider-price-wrap" id="search_price_range">
+				&lt;span class="view-price-min" id="search_price_min">2,000&lt;/span>
+				&lt;span class="view-price-max" id="search_price_max">1,000,000&lt;/span>
+				&lt;!-- //가격 제어 -->
+				&lt;div class="price-bar-default">&lt;/div>
+			&lt;/div>
+			
+			&lt;script>
+	    	$('#search_price_range').priceSlider({
+		    	min : $('#search_price_min'),
+		    	max : $('#search_price_max'),
+		    	start : $('#search_price_start'),
+		    	end : $('#search_price_end')
+		    });
+		    &lt;/script>
+		</pre>
+	</div>
+</article>
+

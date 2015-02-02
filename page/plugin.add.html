@@ -1,0 +1,35 @@
+<h2>jQuery Plugin : Custom Add</h2>
+<div class="desc">
+	다음의 코드를 통해 jQuery Plugin 을 작성할 수 있다.<br>
+	추가로 작성한 Plugin 은 scripts/jquery/plugin 폴더에 위치시킨다.
+</div>
+<article>
+	<h3 id="/ref/js_reference">Sample Code</h3>
+	<div class="code">
+		<pre class="brush: js;">
+			/**
+			 * @name : jquery.fn.sample
+			 */
+			(function( $, window, document){
+				
+				/** 
+				 * @name : sample
+				 */
+				$.fn.sample = function(options) { 						// 인자로 json 을 전달받는다.
+					var defaults = {},		 							// 기본 설정값을 셋팅한다.
+						config = $.extend(true, defaults, options);		// 기본 설정과 인자로 받은 주가설정을 Merge 한다.
+					
+					//...			 									// plugin 에서 사용할 함수를 구현한다.
+					
+			    	return this.each(function (i, v) {					// jQuery Chainning 을 위해 this를 return 한다.
+				    //...							 					// each 문으로 선택된 DOM 에 원하는 동작을 설정한다.
+			    	});													// this 는 선택된 DOM 을 말한다.
+				};
+				
+			
+			})( jQuery, window, document );
+		</pre>
+		
+	</div>
+
+</article>

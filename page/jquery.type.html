@@ -1,0 +1,23 @@
+<h2 class="page-header">Type Check</h2>
+<div class="desc">
+	jQuery.is... Method 로  Type 을 체크할 수 있다.<br>
+	
+	<!-- 참조 : <a href="http://api.jquery.com/jquery.type/" target="_blank">jQuery.type() | jQuery API Documentation</a> -->
+</div>
+<article>
+	<div class="code">
+		<pre class="brush: js;">
+		var str = "Hello World";
+		
+		$.isString(str);		// true
+		$.isNumber(str);		// false
+		$.isObject(str);		// false
+		$.isBoolean(str);		// false
+		$.isFunction(str);		// false
+		$.isArray(str);			// false
+		$.isEmail(str);			// false
+		$.isUrl(str);			// false
+		
+		</pre>
+	</div>
+</article>

@@ -1,0 +1,151 @@
+<%- contentFor('subcontent') %>
+<h2 class="page-header">Initialize</h2>
+<div class="desc">
+	
+	참조되는 JavaScript 파일의 구성은 <br><br>
+	<b>jquery.js</b>,<br>
+	<b>jrx.js</b>,<br>
+	<b>jquery.plugin.pkg.js</b><br>
+	<b>init.js</b><br><br>
+	을 기본으로 한다.<br><br>
+	
+	<ul>
+		<li>Folder Structure</li>
+		<li>js 파일 참조</li>
+		<li>Global Initialize</li>
+		<li>Page Initialize</li>
+	</ul>
+</div>
+
+<article>
+	<h3 class="sub-header">Folder Structure</h3>
+	<div class="desc">
+		/scripts 폴더의 구조를 설명한다.<br><br>
+		
+		/scripts : 모든 scirpt 파일의 root.<br>
+		/scripts/jquery : jquery root.<br>
+		/scripts/jquery/plugin : jquery plugin.<br>
+		/scripts/lib : etc 모든 javascirpt library 파일을 저장한다.<br>
+		 
+	</div>
+	<div class="code">
+		<pre class="brush: xml;">
+			scripts/
+				jquery/ 
+					jquery-1.10.2.min.js
+					jquery.plugin.pkg.min.js
+					m.jquery.plugin.pkg.min.js
+					plugin/
+						jquery.dotdotdot.js
+						jquery.validate.js
+						...
+				lib/
+					jrx.min.js
+					html5.js
+					modernizr.full.min.js
+					skrollr.js
+					...
+				init.js
+				m.init.js
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">js 파일 참조</h3>
+	<div class="desc">
+		기본적으로 js 파일 참조 위치는 <br>
+		<b>&lt;head&gt;&lt;/head&gt;</b> Tag 하위, 닫는 <b>&lt;/body&gt;</b> Tag 바로 위. 두곳만 사용하도록 한다.<br><br><br>
+		
+		head Tag 하위 : 전역으로 사용되는 js 파일을 작성한다. <br>
+		(head Tag 하위의 Resource 는 Parallel Loading 된다.)<br><br>
+		닫는 body Tag 바로 위 : 단위 페이지 별로 사용되는 js 파일을 작성한다.<br>
+		(script block 는 DOM 의 Rendering 을 방해한다.)
+	</div>
+	<div class="code">
+		<pre class="brush: xml;" title="head Tag 안에 작성할 내용">
+			<!-- Global -->
+			&lt;head>
+				&lt;script src="./scripts/jquery/jquery-1.10.2.min.js">&lt;/script>
+			    &lt;script src="./scripts/jquery/jquery.plugin.pkg.js">&lt;/script>
+				&lt;script src="./scripts/lib/jrx.min.js">&lt;/script>
+				
+				&lt;script src="./scripts/init.js">&lt;/script>
+			&lt;/head>
+			&lt;body>
+			
+			<!-- DOM... -->
+				
+				<!-- Page... -->
+				&lt;script src="./scripts/page.js">&lt;/script>
+			&lt;/body>
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">Global Initialize</h3>
+	<div class="desc">
+		전역 설정은 <b>scripts/init.js</b> 파일에 작성한다.<br>
+		application configuration, ajaxSetup 설정 정보 등을 여기서 작성한다.
+	</div>
+	<div class="code">
+		<pre class="brush: js;" title="/scripts/init.js">
+			(function(){
+				$(function($, window, document){
+					
+					//================== application configuration ===============
+					var _appconfig = {
+							"useLog" : true
+						};
+					// set application configuration.
+					$.config(_appconfig);
+					
+					//...        
+					//============================================================
+					
+					//...
+					
+					//===================== global initialize ====================
+					// {Here!!!}
+					//============================================================
+					
+					//...
+					
+				});
+			})(jQuery, window, document);
+		</pre>
+		
+	</div>
+
+</article>
+
+<article>
+	<h3 class="sub-header">Page Code Block</h3>
+	<div class="desc">
+		Page 에 작성되어야 하는 JavaScript Code Block 은 <b>&lt;/body&gt;</b> Tag 바로 위에 아래의 코드 형태로 작성한다.
+	</div>
+	<div class="code">
+		<pre class="brush: xml;" title="Page Code Block">
+			&lt;script>
+				$(function(){
+					
+					//======================== page initialize ===================
+					// {Here!!!}
+					//============================================================
+					
+				});
+			&lt;/script>
+			&lt;/body>
+		</pre>
+		
+	</div>
+
+</article>
+
+
+
+<%- contentFor('script') %>
+<script type="text/javascript">
+
+</script>

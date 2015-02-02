@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+    <title>UI Script Guide ( jQuery-Based )</title>
+    <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" />
+    <link rel="stylesheet/less" type="text/css" href="../styles/default.less" media="all" />
+    
+    <!--[if lt IE 9]>
+        <script src="../scripts/lib/html5.js"></script>
+    <![endif]-->
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>							<!-- jrx -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>									<!-- global init -->
+    
+    
+    <style>
+      #map-canvas {
+        width : 500px;
+        height: 340px;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+</head>
+<body>
+
+<div id="document">
+	<div id="header">
+
+		<h1><a id="header_logo">UI Script Guide ( jQuery-Based )</a></h1>
+		<nav id="nav">
+		</nav>
+	</div>
+
+	<div id="contents">
+		<div class="content-wrap">
+			<aside style="width:200px;">
+				<nav id="lnb">
+				    <ul>
+				        <li><a href="#all" id="all">전체</a></li>
+				        <li><a href="#polo" id="polo">폴로</a></li>
+				        <li><a href="#hazzys" id="hazzys">해지스</a></li>
+				    </ul>
+				</nav>
+			</aside>
+			<div class="content-area">
+				<div class="sub-content">
+					<div id="map-canvas"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="footer">
+		<h1><img src="" alt="Logo" /></h1>
+		<address class="copy"><p>(c) MZ Dev. All rights reserved.</p></address>
+	</footer>
+</div>
+
+<script>
+$(function(){
+	//======================== page initialize ===================
+	var objLatlng = {
+		center : {lat:-50, lng:170},
+		polo : {lat:-70, lng:90},
+		hazzys : {lat:-50, lng:170}
+	}
+	var map = null;
+	var moonTypeOptions = {
+  		getTileUrl: function(coord, zoom) {
+      
+      		var normalizedCoord = getNormalizedCoord(coord, zoom);
+      		if (!normalizedCoord) {
+        		return null;
+      		}
+      		
+      		var imageUrl = '';
+      
+      		if(zoom == 0){
+        		imageUrl = $.config('contextPath') + 'images/map.' + zoom + '.jpg';    
+      		} else {
+        		imageUrl = $.config('contextPath') + 'images/map.' + zoom + '.' + normalizedCoord.x + '.' + normalizedCoord.y + '.jpg';
+      		}
+      
+      		return imageUrl;
+  		},
+  		tileSize: new google.maps.Size(500, 340),
+  		maxZoom: 2,   // 9
+  		minZoom: 0,
+  		radius: 1,  //1738000
+  		name: 'Custom Map Prototype'
+	};
+
+	var moonMapType = new google.maps.ImageMapType(moonTypeOptions);
+
+	function initialize() {
+  		var myLatlng = new google.maps.LatLng(-50, 170);
+  		var mapOptions = {
+    		center: myLatlng,
+    		zoom: 0,
+    		streetViewControl: false,
+    		mapTypeControlOptions: {
+      			mapTypeIds: ['floor']
+   			}
+  		};
+
+  		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  		map.mapTypes.set('floor', moonMapType);
+  		map.setMapTypeId('floor');
+	}
+
+	// Normalizes the coords that tiles repeat across the x axis (horizontally)
+	// like the standard Google map tiles.
+	function getNormalizedCoord(coord, zoom) {
+	  	var y = coord.y;
+	  	var x = coord.x;
+	
+	  	// tile range in one direction range is dependent on zoom level
+	  	// 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+	  	var tileRange = 1 << zoom;
+	  
+	    
+	  	// don't repeat across y-axis (vertically)
+	  	if (y < 0 || y >= tileRange) {
+	    	return null;
+	  	}
+	
+	  	// repeat across x-axis
+	  	if (x < 0 || x >= tileRange) {
+	      	return null;
+	    	// x = (x % tileRange + tileRange) % tileRange;
+	  	}
+
+  		return {
+    		x: x,
+    		y: y
+  		};
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+	$('#all').on('click', function () {
+		
+		var myLatlng = new google.maps.LatLng(-50, 170);
+		setPosition(myLatlng);
+		
+		return false;
+	});
+	$('#polo').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(-70, 90);
+	    
+  		setPosition(myLatlng, 2);
+        return false;
+	});
+	$('#hazzys').on('click', function () {
+	    
+	    var myLatlng = new google.maps.LatLng(10, -10);
+	    
+  		setPosition(myLatlng, 2);
+  		
+  		// var marker = new google.maps.Marker({
+	      	// position: myLatlng,
+	      	// map: map,
+	      	// title: 'Hello World!'
+	  	// });
+        return false;
+	});
+	
+	function setPosition (latlng, zoom) {
+		zoom = zoom || 0;
+		if(!latlng)return;
+		map.setZoom(zoom);
+  		map.setCenter(latlng);
+	}
+
+	//============================================================
+});
+
+
+
+</script>
+</body>
+</html>

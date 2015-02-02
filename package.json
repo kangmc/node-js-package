@@ -1,0 +1,30 @@
+{
+  "name": "scripts.package",
+  "version": "1.0.0",
+  "description": "Name : UI Script package ( jQuery-Based ) \r Version : 1.0",
+  "main": "",
+  "dependencies": {
+    "grunt-jsdoc": "^0.5.7",
+    "grunt": "^0.4.5",
+    "jsdoc": "^3.3.0-alpha9"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-less": "^0.11.4",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-jsdoc": "^0.5.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "path": {
+    "scripts": "scripts",
+    "jquery": "scripts/jquery",
+    "plugin": "scripts/jquery/plugin",
+    "jrx": "scripts/jrx",
+    "dist": "scripts/dist"
+  },
+  "author": "",
+  "license": "ISC"
+}

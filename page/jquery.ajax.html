@@ -1,0 +1,92 @@
+<h2 class="page-header">AJAX</h2>
+<div class="desc">
+	jQuery.ajax 에 대한 설정 관리와<br>
+	get, set, formsubmit, jsonp 사용 방법에 대해 알아본다.<br><br>
+	
+	참조 : <a href="http://api.jquery.com/jQuery.ajax/" target="_blank">jQuery.ajax()</a><br><br>
+	
+	기타 참조 : 
+	<a href="http://api.jquery.com/ajaxError/" target="_blank">.ajaxError()</a>,
+	<a href="http://api.jquery.com/jQuery.ajaxPrefilter/" target="_blank">jQuery.ajaxPrefilter()</a>,
+	<a href="http://api.jquery.com/jQuery.ajaxSetup/" target="_blank">jQuery.ajaxSetup()</a>
+	
+</div>
+
+<article>
+	<h3 class="sub-header">get/set</h3>
+	<div class="code">
+		<pre class="brush: js;">
+			// get
+			var url = 'http://yourdomain.com/api';
+			$.ajax({
+				url : url
+			}).done(function (r) {
+				// 성공 후, callback
+			});
+			
+			// set
+			var url = 'http://yourdomain.com/api';
+			$.ajax({
+				url : url,
+				type : 'POST'
+			}).done(function (r) {
+				// 성공 후, callback
+			});
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">formSubmit</h3>
+	<div class="desc">
+		Plugin 추가가 필요하며 자세한 내용은 아래 링크를 참고 한다.<br><br>
+		참조 : <a href="./plugin.html#/page/plugin.form">Here</a>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">jsonp</h3>
+	<div class="desc">
+		jsonp 방식을 사용하려면 아래 코드처럼 dataType 을 'jsonp'로 셋팅하면 된다.
+	</div>
+	<div class="code">
+		<pre class="brush: js;">
+			// set
+			var url = '...';
+			$.ajax({
+				url : url,
+				dateType : 'jsonp',
+			}).done(function (r) {
+				// 성공 후, callback
+			});
+		</pre>
+	</div>
+</article>
+
+<article>
+	<h3 class="sub-header">전역 설정</h3>
+	<div class="desc">
+		jQuery 에서 jQuery.ajax 에 대해 기본값을 설정할 수 있는 ajaxSetup method 를 제공한다.<br>
+		자세한 스텍은 아래 참조 링크에서 확인 가능하며,<br>
+		본 Package 에서는 scripts/jquery/jquery.init.js 파일에 해당 코드가 존제한다.<br><br>
+		
+		참조 : <a href="http://api.jquery.com/jquery.ajaxsetup/" target="_blank">jQuery.ajaxSetup()</a>
+	</div>
+	<div class="code">
+		<pre class="brush: js;">
+			$.ajaxSetup({ 
+				cache: false,
+				converters: {
+					// Convert anything to text
+					"* text": window.String,
+					// Text to html (true = no transformation)
+					"text html": true,
+					// Evaluate text as a json expression
+					"text json": jQuery.parseJSON,
+					// Parse text as xml
+					"text xml": jQuery.parseXML
+				}
+			});
+		</pre>
+	</div>
+</article>

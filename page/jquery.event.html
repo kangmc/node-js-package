@@ -1,0 +1,42 @@
+<h2 class="page-header">Event</h2>
+<div class="desc">
+	Event, Delegate 의 사용법을 알아본다.<br><br>
+	
+	참조 : <a href="http://api.jquery.com/on/" target="_blank">.on()</a>
+</div>
+
+<article>
+	<h3 id="select_count" class="sub-header">Event</h3>
+	<div class="desc">
+		Listener 의 등록은 .on method 를 사용하도록 한다.<br>
+	</div>
+	<div class="code">
+		<h4 class="small">Event</h4>
+		<pre class="brush: js;">
+			// 등록
+			$('#target').on('click', eventListener);
+			
+			// 해지
+			$('#target').off('click', eventListener);
+			
+			...
+		</pre>
+		
+		<h4 class="small">Delegate</h4>
+		<div class="desc">
+			동적으로 생성되는 요소에 대한 이벤트를 작성하기 위해 사용한다.<br>
+			아래의 코드로 event 를 등록해 놓으면 <br>
+			id 가 target 인 요소의 하위에 추가로 생성되는 a Tag 는 모두 아래의 eventListener 를 실행시킨다.
+		</div>
+		<pre class="brush: js;">
+			// 등록
+			$('#target').on('click', 'a', eventListener);
+			
+			// 해지
+			$('#target').off('click', 'a', eventListener);
+			
+			...
+		</pre>
+	</div>
+
+</article>

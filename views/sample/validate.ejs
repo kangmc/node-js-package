@@ -1,0 +1,184 @@
+<%- contentFor('subcontent') %>
+<form name="frm" id="frm" action=""  novalidate="novalidate">
+<input type="hidden" name="uploadDir" value="sample"/>
+<article>
+	<div class="table-menu">
+		<div class="left">
+			<!-- <button class="btn-type-2">삭제</button> -->
+		</div>
+		<div class="right">
+			<button class="btn-type-1" name="btn_save">등록</button>
+			<button class="btn-type-2" name="btn_cancel">취소</button>
+		</div>
+	</div>
+	<div class="table-type-2">
+		<table>
+			<colgroup>
+				<col width="18%" />
+				<col />
+				<col width="18%" />
+				<col />
+			</colgroup>
+			<tbody>
+				<!-- <tr>
+					<th>히든필드 카운트 처리</th>
+					<td colspan="3">
+						<p class="form-title">
+							<button class="btn-type-1" name="btn_plus"> + </button>
+							<button class="btn-type-2" name="btn_minus"> - </button>
+						</p>
+					</td>
+				</tr> -->
+				<tr>
+					<th>제목 (+)</th>
+					<td colspan="3">
+						<p class="form-title">
+							<select name="aa" id="form.aa"  required="required">
+								<option></option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+							<span>(유효성 검사)</span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th>제목 (+)</th>
+					<td colspan="3">
+						<p class="form-title">
+							<input type="text" id="title" name="title" class="input-block-level" required="required" maxlength="100" data-title="제목" placeholder="제목을 입력하세요." />
+							<span>(유효성 검사)</span>
+						</p>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>이메일</th>
+					<td colspan="3">
+						<p class="form-title">
+							<input type="text" id="search_man" name="search_man" class="input-block-level input-w100" email="email" data-title="이메일" />
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th>날짜 선택</th>
+					<td colspan="3">
+						<p class="form-title">
+							<input type="text" id="date_example" date="date" data-title="날짜" class="input-block-level input-w200" />
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th>내용 (+)</th>
+					<td colspan="3">
+						<div class="content">
+							<textarea id="text_contents" class="editor" style="height:300px;" ></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td colspan="3" class="file-add">
+						<span class="input_file">
+							<input type="file" name="file" id="file"/>
+							<button class="btn-type-3" id="file_upload_btn">등록</button>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td colspan="3">
+						<p class="form-title">
+							<input type="text" id="pwd" name="pwd" class="input-block-level" maxlength="100" data-title="비밀번호" />
+							<span>(유효성 검사)</span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인</th>
+					<td colspan="3">
+						<p class="form-title">
+							<input type="text" id="pwd_chk" name="pwd_chk" class="input-block-level" equalTo="#pwd" maxlength="100" data-title="비밀번호 확인" />
+							<span>(유효성 검사)</span>
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="table-menu">
+		<div class="left">
+			<!-- <button class="btn-type-2">삭제</button> -->
+		</div>
+		<div class="right">
+			<button class="btn-type-1" name="btn_save">등록</button>
+			<button class="btn-type-2" name="btn_cancel">취소</button>
+		</div>
+	</div>
+</article>
+
+</form>
+
+
+<%- contentFor('script') %>
+<script>
+$(function(){
+	//======================== page initialize ===================
+	
+	var $frm = $('#frm');
+	
+	$frm.find('button[name=btn_save]').on('click', saveListener);
+	$frm.find('button[name=btn_cancel]').on('click', cancelListener);
+	
+	$frm.find('button[name=btn_plus]').on('click', plusListener);
+	$frm.find('button[name=btn_minus]').on('click', minusListener);
+	
+	// $.validate.extend();
+	// $.validate.init();
+	// $frm.validate();
+	
+	function saveListener () {
+		
+		$.log('123');
+		// return false;
+		// $frm.validate({
+	        // submitHandler: function (form) {
+	            // alert('123');
+// 	            
+	        // }
+	    // });
+	    
+	    var is = $frm.valid();
+		
+		$.log(is);
+		
+		//$frm.submit();
+		return false;
+	}
+	
+	function cancelListener () {
+		return false;
+	}
+	
+	function plusListener () {
+		$.log('plus click');
+		setCount(true);
+		return false;
+	}
+	
+	function minusListener () {
+		setCount(false);
+		return false;
+	}
+	
+	function setCount (isPlus) {
+		var count = parseInt($('#count').val(), 10);
+		
+		count = isPlus ? count + 1 : count && count - 1;
+		$.log('current count : ' + count);
+		$('#count').val(count);
+	}
+	//============================================================
+});
+</script>

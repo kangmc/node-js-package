@@ -1,0 +1,41 @@
+<h2>jQuery Plugin : listAccordion</h2>
+<div class="desc">
+	
+	UL, Table 태그를 대상으로 제목 클릭시, 내용 부분을 show 시킨다.<br><br> 
+	
+	* selector target : UL, Table<br><br>
+	* options <br>
+	- type {String} : default is 'one', 'all'
+	
+</div>
+<article>
+	<div class="code">
+		<pre class="brush: xml;" title="">
+			&lt;ul id="review_list">
+				&lt;li>
+					&lt;h3>&lt;a href="#">제목1&lt;span title="조회수">15&lt;/span>&lt;/a>&lt;/h3>
+					&lt;div class="answer" id="faqList1">
+						&lt;p>내용1&lt;/p>
+					&lt;/div>
+				&lt;/li>
+				&lt;li>
+					&lt;h3>&lt;a href="#">제목2&lt;span title="조회수">9854&lt;/span>&lt;/a>&lt;/h3>
+					&lt;div class="answer" id="faqList2">
+						&lt;p>내용2&lt;/p>
+					&lt;/div>
+				&lt;/li>
+			&lt;/ul>`
+			
+			&lt;script>
+				// 한개의 row 만 show.
+		    	$('#review_list').listAccordion();
+				
+				// show 상태 유지.
+				$('#review_list').listAccordion({
+					type : 'all'
+				});
+		    &lt;/script>
+		</pre>
+	</div>
+</article>
+

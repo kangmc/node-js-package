@@ -1,0 +1,18 @@
+<%- contentFor('subcontent') %>
+<h2>group check</h2>
+<ul>
+	<li>
+		<label for="parent" value="header">
+			<input type="checkbox" name="parent" /></th>
+		</label>
+	</li>
+	<input type="checkbox" name="child" value="1" />
+	<input type="checkbox" name="child" value="2" />
+</ul>
+
+<%- contentFor('script') %>
+<script>
+$(function(){
+	$('input[name=parent]').groupcheck({ nodes: $('input[name=child]') });
+});
+</script>

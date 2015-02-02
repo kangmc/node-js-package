@@ -1,0 +1,12 @@
+[ 
+	{
+		"name" : "validate",
+		"link" : "/sample/validate",
+		"desc" : "설명필요"
+	},
+	{
+		"name" : "groupcheck",
+		"link" : "/sample/groupcheck",
+		"desc" : "설명필요"
+	}
+]

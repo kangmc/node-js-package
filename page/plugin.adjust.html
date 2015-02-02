@@ -1,0 +1,27 @@
+<h2>jQuery Plugin : Adjust</h2>
+<div class="desc">
+	input 값의 숫자 증가/감소<br><br>
+	
+	* options :<br>
+	- readonly {Boolean} : default is false.
+</div>
+<article>
+	<div class="code">
+		<pre class="brush: xml;">
+			&lt;button type="button" class="option-selector fl"title="수량감소">&lt;i class="tmp-icon-minus">&lt;/i>&lt;/button>
+			&lt;input type="text" class="fl" value="1" id="option_box" />
+			&lt;button type="button" class="option-selector fr" title="수량증가">&lt;i class="tmp-icon-plus">&lt;/i>&lt;/button>
+
+			&lt;script>
+				
+				
+		    	$('#option_box').nAdjust();
+		    	
+		    	// options > readonly {Boolean} : input readonly.
+		    	$('#option_box').nAdjust({readonly : true});
+		    	
+		    &lt;/script>
+		</pre>
+	</div>
+</article>
+

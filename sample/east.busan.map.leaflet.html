@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>UI Script Guide ( jQuery-Based )</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" /> -->
+    <link rel="stylesheet" 
+          href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" /> 
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>							<!-- jrx -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>
+    
+    <style>
+    a {color:inherit; text-decoration:none;}
+    #navi ul {padding-bottom : 20px;list-style-type : none;clear:both;}
+    #navi li {float:left;width:30%;}
+	#map-canvas {width : 100%;border :1px solid #aaaaaa;margin: 0px;padding: 0px;}
+    </style>
+    <style>
+      #map-canvas {
+        width : 100%;
+        height: 340px;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+</head>
+<body>
+
+<div id="document">
+
+	<div id="contents">
+		<div class="content-wrap">
+			<aside>
+				<nav id="navi">
+				    <ul>
+				        <li><a href="#all" id="all">전체</a></li>
+				        <li><a href="#nike" id="nike">나이키</a></li>
+				        <li><a href="#north" id="north">노스페이스</a></li>
+				    </ul>
+				</nav>
+			</aside>
+			<div class="content-area">
+				<div class="sub-content">
+					<div id="map-canvas"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$(function(){
+	//======================== page initialize ===================
+	var objLatlng = {
+		center : {lat:-50, lng:170},
+		polo : {lat:-70, lng:90},
+		hazzys : {lat:-50, lng:170}
+	};
+	
+	var map = L.map('map-canvas').setView([3, 3], 0);
+	
+    L.tileLayer('/images/{z}/{x}.{y}.jpg', {
+        minZoom: 0,
+        maxZoom:3,
+        attribution: 'ESO/INAF-VST/OmegaCAM',
+        tms: true
+    }).addTo(map);
+	//============================================================
+});
+
+
+
+</script>
+</body>
+</html>

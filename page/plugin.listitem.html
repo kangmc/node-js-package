@@ -1,0 +1,44 @@
+<h2>jQuery Plugin : listItem</h2>
+<div class="desc">
+	
+	상품아이템에 대한 Interaction Control.<br>
+	장바구니 레이어 show/hide : 해당 아이템영역(.item) 에 div.layer-option 요소가 있는 경우 동작.<br>
+	수량 증가/감소
+	<br><br>
+	
+	* selector target : 상품리스트 UL<br><br>
+	
+	* options <br>
+	- detail {Function} : 상세 아이콘 클릭 이벤트<br>
+	- zzim {Function} : 찜하기 클릭 이벤트<br>
+	- cart {Function} : 장바구니 클릭 이벤트 (장바구니레이어 있는 경우, 레이어의 장바구니 버튼)<br>
+</div>
+<article>
+	<!-- <div class="desc">
+		
+		해당 모듈의 컨트롤은 Item 에 설정된 attribute 중 각 Tag의 name 을 참조합니다.<br>
+		item_detail : 상품의 상세 주소<br>
+		item_option : 상품의 옵션<br>
+		item_quantity : 상품의 수량<br>
+		
+		btn_item_detail : 툴박스의 상세보기<br>
+		btn_item_zzim : 툴박스의 찜하기<br>
+		btn_item_cart : 툴박스의 카트에 담기<br>
+		
+		btn_option_cart : 옵션 레이어의 카트에 담기<br>
+		btn_option_close : 옵션 레이어의 닫기
+	</div> -->
+	<div class="code">
+		<pre class="brush: js;" title="">
+	    	$('#goods_list').listItem({
+	        	detail : function () {},
+	        	zzim : function () {},
+	        	cart : function () {
+	        		
+	        		$.log('cart');
+	        	}
+	        });
+		</pre>
+	</div>
+</article>
+

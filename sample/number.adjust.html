@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <title>UI Script Guide ( jQuery-Based )</title>
+    <link rel="stylesheet" type="text/css" href="../styles/default.css" media="all" />
+    
+    <!-- syntaxhighlighter -->
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter/styles/shCoreDefault.css"/>
+    <script type="text/javascript" src="../syntaxhighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushXml.js"></script>
+	<script type="text/javascript" src="../syntaxhighlighter/scripts/shBrushJScript.js"></script>
+	
+    <!--[if lt IE 9]>
+        <script src="../scripts/lib/html5.js"></script>
+    <![endif]-->
+    <!-- modernizr -->
+	<script type="text/javascript" src="../scripts/lib/modernizr.full.min.js"></script>
+    
+    <script src="../scripts/jquery/jquery-1.10.2.min.js"></script>				<!-- jquery -->
+    <script src="../scripts/jquery/jquery.plugin.pkg.min.js"></script>			<!-- jquery : plugin -->
+	<script src="../scripts/lib/jrx.min.js"></script>						<!-- jrx -->
+	
+	<script>
+	(function(){
+		
+		$.config({contextPath:'/tru_scripts_doc/'});
+		
+	})();
+	</script>
+	<script src="../scripts/init.js"></script>									<!-- global init -->
+    
+    <!-- jquery : ui -->
+    <script src="../scripts/jquery/ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../scripts/jquery/ui/jquery-ui.min.css" media="all" />
+    
+</head>
+<body>
+
+<div id="document">
+	<div id="header">
+
+		<h1><a id="header_logo">UI Script Guide ( jQuery-Based )</a></h1>
+		<nav id="nav">
+		</nav>
+	</div>
+
+	<div id="contents">
+		<div class="content-wrap">
+			<aside>
+				<nav id="lnb"></nav>
+			</aside>
+			<div class="content-area">
+				<div class="sub-content">
+					<article>
+						<div class="table-type-2">
+							<div style="clear:both;">
+								<input type="text" id="number1" name="number1" data-number="1" style="float:left;" />
+							</div>
+						</div>
+					</article>
+					
+				</div>
+				<div class="fixed" style="right:30px;bottom:50px;">
+					<button class="btn-type-1" id="top">Top</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="footer">
+		<h1><img src="" alt="Logo" /></h1>
+		<address class="copy"><p>(c) MZ Dev. All rights reserved.</p></address>
+	</footer>
+</div>
+
+<script>
+(function(){
+	$(function(){
+		//======================== page initialize ===================
+		
+		$('#number1').nAdjust({readonly:false});
+		
+		//============================================================
+	});
+})();
+</script>
+</body>
+</html>
