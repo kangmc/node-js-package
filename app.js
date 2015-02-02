@@ -13,7 +13,7 @@ app.use(expressLayouts);
 app.use(express.static(__dirname + '/'));
 
 app.get('/', function(req, res) {
-	res.render('view', { title: 'test' });
+	res.redirect('/guide/init');
 });
 
 app.get('/guide/:id', function(req, res) {

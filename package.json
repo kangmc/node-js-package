@@ -6,7 +6,9 @@
   "dependencies": {
     "grunt-jsdoc": "^0.5.7",
     "grunt": "^0.4.5",
-    "jsdoc": "^3.3.0-alpha9"
+    "jsdoc": "^3.3.0-alpha9",
+    "express": "~4.11.2",
+    "ejs": "~2.2.4"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
