@@ -4,11 +4,12 @@
   "description": "Name : UI Script package ( jQuery-Based ) \r Version : 1.0",
   "main": "",
   "dependencies": {
-    "grunt-jsdoc": "^0.5.7",
-    "grunt": "^0.4.5",
-    "jsdoc": "^3.3.0-alpha9",
+    "ejs": "~2.2.4",
     "express": "~4.11.2",
-    "ejs": "~2.2.4"
+    "express-ejs-layouts": "^1.1.0",
+    "grunt": "^0.4.5",
+    "grunt-jsdoc": "^0.5.7",
+    "jsdoc": "^3.3.0-alpha9"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
